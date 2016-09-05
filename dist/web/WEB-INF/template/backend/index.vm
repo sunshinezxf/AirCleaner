@@ -1,0 +1,11 @@
+#parse("/common/util.vm")
+<html lang="zh_CN">
+<head>
+    <meta charset="utf-8">
+    <title>首页</title>
+    <meta http-equiv="refresh" content="0;url=login">
+</head>
+<body>
+
+</body>
+</html>

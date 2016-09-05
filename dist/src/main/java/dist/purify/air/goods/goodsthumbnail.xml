@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="air.purify.goods.thumbnail">
+    <resultMap id="thumbnailVo" type="common.purify.air.model.goods.GoodsThumbnail">
+        <result property="thumbnailId" column=""></result>
+        <result property="thumbnailPath" column=""></result>
+        <result property="blockFlag" column=""></result>
+        <result property="createAt" column=""></result>
+        <association property="goods" column="goodsId = goods_id" select=""></association>
+    </resultMap>
+</mapper>

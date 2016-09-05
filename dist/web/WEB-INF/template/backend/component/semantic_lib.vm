@@ -1,0 +1,2 @@
+<link rel="stylesheet" type="text/css" href="${path.concat('/plugins/semantic/dist/semantic.min.css')}">
+<script type="text/javascript" src="${path.concat('/plugins/semantic/dist/semantic.min.js')}"></script>
