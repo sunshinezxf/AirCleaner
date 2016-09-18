@@ -1,0 +1,87 @@
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <hr>
+        <form id="config_qrcode_form" class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2 col-md-2 col-lg-2 control-label" for="config_prefix">
+                    所属商品
+                </label>
+
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    #if(${goods})
+                        <select class="form-control" name="goodsId">
+                            #foreach($item in ${goods})
+                                <option value="${item.goodsId}">${item.goodsName}</option>
+                            #end
+                        </select>
+                    #end
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    <a class="btn btn-primary" href="${path.concat('/goods/create')}">点击添加商品</a>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 col-md-2 col-lg-2 control-label" for="config_prefix">
+                    二维码前缀
+                </label>
+
+                <div class="col-sm-8 col-md-8 col-lg-8">
+                    <input type="text" class="form-control" id="config_prefix" name="prefix"
+                           placeholder="请输入需要生成的二维码的前缀,可为数字[0-9]或英文字母[a-zA-Z]"
+                           required="" autocomplete="off"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 col-md-2 col-lg-2 control-label" for="config_quantity">
+                    二维码数量
+                </label>
+
+                <div class="col-sm-8 col-md-8 col-lg-8">
+                    <input type="number" class="form-control" id="config_quantity" name="quantity"
+                           placeholder="请输入批量生成二维码的数量"
+                           required="" autocomplete="off"/>
+                </div>
+            </div>
+        </form>
+        <hr>
+        <div class="form-inline">
+            <button type="submit" id="confirm_create_qrcode"
+                    class="btn btn-success" disabled="disabled">批量生成
+            </button>
+            <button type="button" id="clear_config_content"
+                    class="btn btn-warning">清空参数
+            </button>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $(".form-control").on("input propertychange", function () {
+            if (config_validate()) {
+                $("#confirm_create_qrcode").removeAttr("disabled");
+            } else {
+                $("#confirm_create_qrcode").attr("disabled", "disabled");
+            }
+        });
+    });
+
+    $("#confirm_create_qrcode").click(function () {
+        if (config_validate()) {
+            $("#confirm_create_qrcode").attr("disabled", "disabled");
+            $("#config_qrcode_form").attr("action", "${path.concat('/qrcode/create')}");
+            $("#config_qrcode_form").attr("method", "post");
+            $("#config_qrcode_form").submit();
+            $("#confirm_create_qrcode").removeAttr("disabled");
+        }
+    });
+</script>
+<script>
+    function config_validate() {
+        var prefix = $("#config_prefix").val();
+        var quantity = $("#config_quantity").val();
+        if (not_null(prefix) && not_null(quantity)) {
+            return true;
+        }
+        return false;
+    }
+</script>

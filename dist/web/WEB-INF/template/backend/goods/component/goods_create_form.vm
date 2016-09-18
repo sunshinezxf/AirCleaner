@@ -1,0 +1,92 @@
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <hr>
+        <form id="create-goods-form" class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2 col-md-2 col-lg-2 control-label" for="goods_name">
+                    商品名称
+                </label>
+
+                <div class="col-sm-8 col-md-8 col-lg-8">
+                    <input type="text" class="form-control" id="goods_name" name="goodsName"
+                           placeholder="请输入商品名称"
+                           required="" autocomplete="off"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 col-md-2 col-lg-2 control-label" for="goods_prime_price">
+                    商品原价
+                </label>
+
+                <div class="col-sm-8 col-md-8 col-lg-8">
+                    <input type="text" class="form-control" id="goods_prime_price" name="primePrice"
+                           placeholder="请输入商品原价"
+                           required="" autocomplete="off"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 col-md-2 col-lg-2 control-label" for="goods_share_price">
+                    分享价格
+                </label>
+
+                <div class="col-sm-8 col-md-8 col-lg-8">
+                    <input type="text" class="form-control" id="goods_share_price" name="sharePrice"
+                           placeholder="请输入分享价格"
+                           required="" autocomplete="off"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 col-md-2 col-lg-2 control-label" for="goods_description">
+                    商品描述
+                </label>
+
+                <div class="col-sm-8 col-md-8 col-lg-8">
+                    <input type="text" class="form-control" id="goods_description" name="description"
+                           placeholder="请输入商品描述"
+                           required="" autocomplete="off"/>
+                </div>
+            </div>
+        </form>
+        <hr>
+        <div class="form-inline">
+            <button type="button" id="confirm_create_goods"
+                    class="btn btn-success" disabled="disabled">添加商品
+            </button>
+            <button type="button" id="clear_goods_content"
+                    class="btn btn-warning">清空参数
+            </button>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $(".form-control").on("input propertychange", function () {
+            if (config_validate()) {
+                $("#confirm_create_goods").removeAttr("disabled");
+            } else {
+                $("#confirm_create_goods").attr("disabled", "disabled");
+            }
+        });
+
+        $("#confirm_create_goods").click(function () {
+            $("#confirm_create_goods").attr("disabled", "disabled");
+            if (config_validate()) {
+                $("#create-goods-form").attr("action", "${path.concat('/goods/create')}");
+                $("#create-goods-form").attr("method", "post");
+                $("#create-goods-form").submit();
+            }
+            $("#confirm_create_goods").removeAttr("disabled");
+        });
+    });
+</script>
+<script>
+    function config_validate() {
+        var goods_name = $("#goods_name").val();
+        var prime_price = $("#goods_prime_price").val();
+        var share_price = $("#goods_share_price").val();
+        if (not_null(goods_name) && not_null(prime_price) && not_null(share_price)) {
+            return true;
+        }
+        return false;
+    }
+</script>

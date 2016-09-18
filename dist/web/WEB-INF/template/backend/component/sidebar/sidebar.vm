@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col-sm-3 col-md-2 sidebar">
+        <ul class="nav nav-sidebar" id="accordion">
+            <li><a href="${path.concat('/dashboard')}"><i class="fa fa-desktop"></i> 首页</a></li>
+            <li>
+                <a class="menu" data-toggle="collapse" data-parent="#accordion" href="#goods-management"><i
+                        class="fa fa-book"></i> 商品配置<i
+                        class="pull-right fa fa-caret-down"></i></a>
+                <ul id="goods-management" class="nav nav-collapse collapse">
+                    <li>
+                        <a class="sub-nav" href="${path.concat('/goods/create')}">
+                            <span class="nav-item"><i class="fa fa-edit"></i>添加商品</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a class="menu" data-toggle="collapse" data-parent="#accordion" href="#util-management"><i
+                        class="fa fa-book"></i> 配置管理<i
+                        class="pull-right fa fa-caret-down"></i></a>
+                <ul id="util-management" class="nav nav-collapse collapse">
+                    <li>
+                        <a class="sub-nav" href="${path.concat('/qrcode/create')}">
+                            <span class="nav-item"><i class="fa fa-edit"></i>生成二维码</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<script>
+    $(function () {
+        var target_id = $(".main").attr("id-target");
+        $("#" + target_id).collapse('show');
+    });
+
+    var array = ["#goods-management", "#util-management"];
+
+    $(".menu").click(function () {
+        var menu_id = $(this).attr("href");
+        $.each(array, function (i, value) {
+            if (value != menu_id) {
+                $(value).collapse('hide');
+            }
+        });
+    });
+</script>

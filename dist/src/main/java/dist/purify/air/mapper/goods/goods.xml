@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="purify.air.goods">
+    <resultMap id="goodsVo" type="model.goods.Goods4Customer">
+        <result property="goodsId" column="goods_id"></result>
+        <result property="goodsName" column="goods_name"></result>
+        <result property="primePrice" column="prime_price"></result>
+        <result property="sharePrice" column="share_price"></result>
+        <result property="goodsDescription" column="goods_description"></result>
+        <result property="blockFlag" column="block_flag"></result>
+        <result property="createAt" column="create_time"></result>
+    </resultMap>
+
+    <insert id="insert" parameterType="model.goods.Goods4Customer">
+        INSERT INTO airburg.goods(goods_id, goods_name, prime_price, share_price, goods_description, block_flag, create_time)
+        VALUES (#{goodsId}, #{goodsName}, #{primePrice}, #{sharePrice}, #{goodsDescription}, #{blockFlag}, #{createAt})
+    </insert>
+
+    <select id="query" parameterType="java.util.Map" resultMap="goodsVo">
+        SELECT goods_id, goods_name, prime_price, share_price, goods_description, block_flag, create_time
+        FROM airburg.goods
+        WHERE 1 = 1
+        <if test="goodsId != null">
+            AND goods_id = #{goodsId}
+        </if>
+        <if test="goodsName != null">
+            AND goods_name = #{goodsName}
+        </if>
+        <if test="blockFlag != null">
+            AND block_flag = #{blockFlag}
+        </if>
+    </select>
+</mapper>

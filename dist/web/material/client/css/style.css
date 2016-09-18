@@ -1,0 +1,400 @@
+body {
+    overflow-x: hidden;
+    margin: 1em 0;
+}
+
+header {
+    margin: auto 1em;
+}
+
+main {
+    margin: 1em auto;
+    padding-bottom: 8em;
+}
+
+#image-slider {
+    position: relative;
+    width: 100%;
+}
+
+#canvas {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    margin: 0 auto;
+}
+
+#introduction > div {
+    margin: 2em auto;
+    text-align: center;
+}
+
+#introduction img {
+    width: 20%;
+}
+
+#introduction p {
+    margin-top: 0.5em;
+    color: #747474;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 8em;
+    background: #fff;
+    border-top: 1px solid #d2d2d2;
+}
+
+footer .upper {
+    height: 4em;
+    border-bottom: 1px solid #d2d2d2;
+    display: flex;
+    flex-direction: row;
+}
+
+.upper .name {
+    width: 8em;
+    padding-left: 1em;
+}
+
+.upper .name p {
+    font: normal 1.4em/2em Arial, sans-serif;
+    color: #21BBF0;
+    margin-top: 0.3em;
+    margin-bottom: 0.3em;
+}
+
+.upper .price {
+    flex: 1;
+    padding-right: 1em;
+}
+
+.upper .price p {
+    text-align: right;
+    font: normal 1.4em/2em Arial, sans-serif;
+    color: #21BBF0;
+    margin-top: 0.3em;
+    margin-bottom: 0.3em;
+}
+
+.upper .price p .postStyle {
+    font-size: 0.6em;
+    color: #747474;
+    font-weight: normal;
+}
+
+footer .under {
+    height: 4em;
+    display: flex;
+    flex-direction: row;
+}
+
+.under .num {
+    flex: 1;
+    padding-left: 1em;
+    display: flex;
+    flex-direction: row;
+}
+
+.under .num p {
+    width: 3em;
+    font: normal 1.4em/2em Arial, sans-serif;
+    color: #747474;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.under .num .number_choose {
+    flex: 1;
+    padding: 1em auto;
+}
+
+.num_box {
+    width: 1.2em;
+    text-align: center;
+    font: normal 1.3em/2em Arial, sans-serif;
+    border: 0;
+    color: #747474;
+    background-color: #fff;
+    margin-top: 0.6em;
+    margin-bottom: 0.6em;
+}
+
+.min, .add {
+    width: 1.3em;
+    border: 0;
+    background-color: #fff;
+    font-size: 1em;
+    color: #21BBF0;
+    padding-left: 0;
+    padding-right: 0;
+    margin-top: 0.4em;
+    margin-bottom: 0.4em;
+}
+
+.under .purchase {
+    position: relative;
+    width: 6em;
+    padding-right: 1em;
+    text-align: right;
+}
+
+.under .purchase button {
+    position: absolute;
+    top: 20%;
+    bottom: 20%;
+    right: 1em;
+    width: 6em;
+    height: 60%;
+    border: 0;
+    color: #ffffff;
+    background-color: #21BBF0;
+    font: normal 1.2em/2em Arial, sans-serif;
+
+    -webkit-border-radius: 1.875em;
+    -moz-border-radius: 1.875em;
+    border-radius: 1.875em;
+
+    -webkit-box-shadow: 0.0625em 0.0625em 0.0625em rgba(0, 0, 0, .29), inset 0.0625em 0.0625em 0.0625em rgba(255, 255, 255, .44);
+    -moz-box-shadow: 0.0625em 0.0625em 0.0625em rgba(0, 0, 0, .29), inset 0.0625em 0.0625em 0.0625em rgba(255, 255, 255, .44);
+    box-shadow: 0.0625em 0.0625em 0.0625em rgba(0, 0, 0, .29), inset 0.0625em 0.0625em 0.0625em rgba(255, 255, 255, .44);
+
+    -webkit-transition: all 0.15s ease;
+    -moz-transition: all 0.15s ease;
+    -o-transition: all 0.15s ease;
+    -ms-transition: all 0.15s ease;
+    transition: all 0.15s ease;
+}
+
+.weui_actionsheet {
+    height: auto;
+    z-index: 3;
+}
+
+.weui_actionsheet_menu {
+    background-color: #EFEFF4;
+}
+
+.menu_title {
+    height: auto;
+    text-align: center;
+    background-color: #ffffff;
+    border-bottom: 0.0625em solid #EFEFF4;
+}
+
+.menu_title h3 {
+    font-weight: normal;
+    padding: 1.5%;
+}
+
+.address_area {
+    height: auto;
+    text-align: left;
+    background-color: #ffffff;
+    margin-top: 0.4em;
+    margin-bottom: 0.4em;
+    border-top: 0.0625em solid #EFEFF4;
+    border-bottom: 0.0625em solid #EFEFF4;
+}
+
+.address_information {
+    height: auto;
+}
+
+.address_title {
+    position: relative;
+    height: 2.2em;
+}
+
+.address_title p {
+    position: absolute;
+    display: inline-block;
+    top: 28%;
+    bottom: 0;
+    left: 13%;
+    right: 71%;
+    height: 72%;
+    width: 20%;
+    font-size: 1em;
+}
+
+.address_icon {
+    position: absolute;
+    display: inline-block;
+    top: 23%;
+    bottom: 9%;
+    left: 4%;
+    right: 89%;
+    height: 68%;
+    width: 7%;
+}
+
+.icon {
+    width: 100%;
+    height: 100%;
+}
+
+.weui_cells {
+    margin-top: 0;
+}
+
+.weui_label {
+    width: 5em;
+    font-size: 0.8em;
+    color: #000040;
+}
+
+.weui_cell_bd input {
+    font-size: 0.8em;
+    color: #000040;
+}
+
+.id {
+    height: 2.5em;
+    margin-bottom: 0.4em;
+    border-top: 0.0625em solid #EFEFF4;
+    border-bottom: 0.0625em solid #EFEFF4;
+    background-color: #ffffff;
+    padding: 0;
+}
+
+.id:before {
+    border-top: none;
+}
+
+.id_icon {
+    position: absolute;
+    display: inline-block;
+    top: 12%;
+    bottom: 12%;
+    left: 3%;
+    right: 88%;
+    height: 76%;
+    width: 9%;
+}
+
+.agent_id {
+    position: absolute;
+    display: inline-block;
+    top: 5%;
+    bottom: 5%;
+    left: 13%;
+    right: 5%;
+    height: 90%;
+    width: 82%;
+}
+
+.agent_id table {
+    width: 100%;
+    vertical-align: middle;
+}
+
+.hd {
+    width: 4em;
+    vertical-align: middle;
+}
+
+.bd {
+    width: auto;
+    vertical-align: middle;
+}
+
+.id_label {
+    font-weight: normal;
+    font-size: 1em;
+}
+
+.agent_id input {
+    width: 100%;
+    height: 2em;
+    outline: none;
+    border: none;
+    font-size: .95em;
+    text-align: right;
+    line-height: 2em;
+    color: #000040;
+}
+
+.confirm_area {
+    position: relative;
+    width: 100%;
+    height: 4em;
+    background-color: #ffffff;
+    border-top: 0.0625em solid #EFEFF4;
+}
+
+.total_info {
+    position: absolute;
+    top: 7%;
+    bottom: 7%;
+    left: 5%;
+    right: 35%;
+    width: 60%;
+    height: 86%;
+    text-align: left;
+}
+
+.total_num {
+    height: 40%;
+    font-size: 1.05em;
+}
+
+.total_num p {
+    display: inline-block;
+}
+
+#total_num {
+    color: #21BBF0;
+    margin: auto 0.2em;
+}
+
+.sum, .sum_price {
+    display: inline-block;
+    font-size: 1.05em;
+}
+
+.sum_price {
+    color: #21BBF0;
+}
+
+.to_pay {
+    position: absolute;
+    top: 20%;
+    bottom: 20%;
+    left: 65%;
+    right: 5%;
+    width: 30%;
+    height: 60%;
+    text-align: center;
+    border: none;
+}
+
+.weui_btn_primary {
+    background-color: #21BBF0;
+}
+
+.weui_btn_primary:not(.weui_btn_disabled):active {
+    background-color: #21BBF0;
+}
+
+.weui_mask_transition {
+    z-index: 2;
+}
+
+.weui_dialog {
+    z-index: 4;
+}
+
+.weui_cells:after {
+    border-bottom: none;
+}
+
+.btn_disabled {
+    color: #D9D9D9;
+}

@@ -1,0 +1,3 @@
+<link rel="stylesheet" type="text/css" href="${path.concat('/plugins/location/css/address_plugin.css')}">
+<script type="text/javascript" src="${path.concat('/plugins/location/jquery.cityselect.js')}"></script>
+<script type="text/javascript" src="${path.concat('/plugins/location/city.min.js')}"></script>

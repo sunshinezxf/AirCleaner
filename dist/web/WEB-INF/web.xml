@@ -58,7 +58,7 @@
     </listener>
 
     <servlet>
-        <servlet-name>selling</servlet-name>
+        <servlet-name>air-cleaner</servlet-name>
         <servlet-class>dist.purify.air.dispatcher.AirDispather</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
@@ -68,7 +68,7 @@
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>selling</servlet-name>
+        <servlet-name>air-cleaner</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 </web-app>

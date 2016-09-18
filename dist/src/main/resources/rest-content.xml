@@ -75,10 +75,12 @@
                 / = anon
 
                 /login = anon
-                
+
+                /material/** = anon
+
                 /plugins/** = anon
 
-                /** = authc
+                /** = anon
             </value>
         </property>
     </bean>
