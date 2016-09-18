@@ -29,7 +29,7 @@ $(document).ready(function () {
     check_num();
 
     $('#province').citySelect({
-        url: '${path.concat("/plugins/jquery/city.min.js")}',
+        url: '${path.concat("/plugins/location/city.min.js")}',
         required: false,
         nodata: 'none',//当子集无数据时，隐藏select
     });

@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by sunshine on 16/9/13.
@@ -76,6 +78,8 @@ public class GoodsController {
     @RequestMapping(method = RequestMethod.GET, value = "/{goodsId}/purchase")
     public ModelAndView purchase(@PathVariable("goodsId") String goodsId, String client, String code, String state) {
         ModelAndView view = new ModelAndView();
+        Map<String, Object> condition = new HashMap<>();
+        condition.put("goodsId", goodsId);
         view.setViewName("/client/goods/purchase");
         return view;
     }

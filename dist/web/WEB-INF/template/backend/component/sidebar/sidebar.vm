@@ -30,6 +30,9 @@
     </div>
 </div>
 <script>
+    $("#goods-management").collapse('hide');
+    $("#util-management").collapse('hide');
+
     $(function () {
         var target_id = $(".main").attr("id-target");
         $("#" + target_id).collapse('show');

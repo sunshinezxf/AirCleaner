@@ -5,6 +5,7 @@ import dist.purify.air.service.GoodsService;
 import dist.purify.air.service.QRCodeService;
 import dist.purify.air.utils.ResponseCode;
 import dist.purify.air.utils.ResultData;
+import dist.purify.air.utils.ZipUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -52,11 +54,19 @@ public class QRCodeController {
             return view;
         }
         ResultData response = qrCodeService.create(form.getPrefix(), Integer.parseInt(form.getQuantity()), form.getGoodsId());
-        if (response.getResponseCode() == ResponseCode.RESPONSE_OK) {
-            view.setViewName("/backend/qrcode/download");
+        if (response.getResponseCode() != ResponseCode.RESPONSE_OK) {
+            view.setViewName("redirect:/qrcode/create");
             return view;
         }
-        view.setViewName("redirect:/qrcode/create");
+        response = ZipUtil.compress((List) response.getData());
+        if (response.getResponseCode() != ResponseCode.RESPONSE_OK) {
+            view.setViewName("redirect:/qrcode/create");
+            return view;
+        }
+        String file = (String) response.getData();
+        logger.debug("file: " + file);
+        view.addObject("file", file);
+        view.setViewName("/backend/qrcode/download");
         return view;
     }
 }

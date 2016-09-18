@@ -78,7 +78,6 @@ public class WechatUtil {
     }
 
     public static String queryShortURL(String previous) {
-        PlatformConfig config = PlatformConfig.instance();
         String url = "https://api.weixin.qq.com/cgi-bin/shorturl?access_token=" + PlatformConfig.getAccessToken();
         try {
             JSONObject param = new JSONObject();
@@ -101,7 +100,7 @@ public class WechatUtil {
             PlatformConfig config = PlatformConfig.instance();
             sb.append("https://open.weixin.qq.com/connect/oauth2/authorize?");
             sb.append("appid=").append(config.getValue("wechat_appid"));
-            sb.append("&redirect_url=").append(URLEncoder.encode(url, "UTF-8"));
+            sb.append("&redirect_uri=").append(URLEncoder.encode(url, "UTF-8"));
             sb.append("&response_type=code");
             sb.append("&scope=snsapi_base");
             sb.append("&state=view");

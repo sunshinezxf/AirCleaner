@@ -1,0 +1,94 @@
+#parse("/common/util.vm")
+<html>
+<head>
+    #parse("/client/component/init/init_lib.vm")
+    #parse("/client/component/init/responsive_lib.vm")
+    #parse("/client/component/init/weui_lib.vm")
+    <link rel="stylesheet" type="text/css" href="${path.concat('/material/client/css/bind.css')}">
+    <title>购买</title>
+</head>
+<body ontouchstart>
+<div class="container">
+    <div class="hd">
+        <h1 class="page_title">设备注册</h1>
+
+        <p class="page_desc">请填写您的设备注册所需信息</p>
+    </div>
+    <div class="bd">
+        <form id="equipment_info_form">
+            <div id="first_step">
+                <div class="consult_form">
+                    <div class="weui_cells">
+                        <div class="weui_cell">
+                            <div class="weui_cell_hd">
+                                <label class="weui_label">手机</label>
+                            </div>
+                            <div class="weui_cell_bd weui_cell_primary">
+                                <input id="phone" class="weui_input" type="tel" placeholder="请填写手机号"
+                                       autocomplete="off"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="weui_btn_area">
+                    <button type="button" class="weui_btn weui_btn_disabled weui_btn_default" id="next_btn"
+                            disabled="disabled">下一步
+                    </button>
+                </div>
+            </div>
+            <!--根据手机号做判断-->
+            <div id="second_step">
+                <div class="equipment_info">
+                    <div class="weui_cell">
+                        <div class="weui_cell_hd">
+                            <label class="weui_label">姓名</label>
+                        </div>
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <input id="name" name="name" class="weui_input" type="text" placeholder="请填写本人姓名"
+                                   autocomplete="off"/>
+                        </div>
+                    </div>
+                    <div class="weui_cell">
+                        <div class="weui_cell_hd">
+                            <label class="weui_label">年龄</label>
+                        </div>
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <select id="gender" class="gender_select" name="gender">
+                                <option value="" selected>请选择性别</option>
+                                <option value="M">男</option>
+                                <option value="F">女</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="weui_cell">
+                        <div class="weui_cell_hd">
+                            <label class="weui_label">地址</label>
+                        </div>
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <input id="address" name="address" class="weui_input" type="text" placeholder="请填写本人地址"
+                                   autocomplete="off"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="weui_btn_area">
+                    <button type="button" class="weui_btn weui_btn_disabled weui_btn_default" id="register_btn"
+                            disabled="disabled">注册
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="weui_dialog_alert" id="dialog" style="display: none;">
+    <div class="weui_mask"></div>
+    <div class="weui_dialog">
+        <div class="weui_dialog_hd"><strong class="weui_dialog_title">消息</strong></div>
+        <div class="weui_dialog_bd"></div>
+        <div class="weui_dialog_ft">
+            <a href="javascript:;" class="weui_btn_dialog primary">确定</a>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="${path.concat('/material/client/js/register.js')}"></script>
+</html>

@@ -26,9 +26,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.List;
 
 /**
  * Created by sunshine on 8/28/16.
@@ -57,6 +56,7 @@ public class QRCodeServiceImpl implements QRCodeService {
             return result;
         }
         DecimalFormat principle = new DecimalFormat("000");
+        List<String> path = new ArrayList<>();
         synchronized (lock) {
             StringBuffer message = new StringBuffer();
             AbstractGoods goods = new Goods4Customer();
@@ -73,12 +73,13 @@ public class QRCodeServiceImpl implements QRCodeService {
                 QRCode purchase = new QRCode(value, new StringBuffer(SAVE_PATH).append(date).append(File.separator).append(value).append("_machine.png").toString(), goods);
                 String text = new StringBuffer("http://").append(config.getValue("server_url")).append("/goods/").append(purchase.getGoods().getGoodsId()).append("/purchase").append("?client=").append(purchase.getValue()).toString();
                 String url = WechatUtil.createOauthURL(text);
-                purchase.setUrl(WechatUtil.queryShortURL(url));
+                purchase.setUrl(url);
                 ResultData response = generate(purchase);
                 if (response.getResponseCode() == ResponseCode.RESPONSE_ERROR) {
                     message.append(purchase.getValue()).append(", error message: ").append(response.getDescription());
                 }
                 combine(purchase.getPath());
+                path.add(purchase.getPath());
                 //保存到数据库
                 response = qrCodeDao.insertQRCode(purchase);
                 if (response.getResponseCode() != ResponseCode.RESPONSE_OK) {
@@ -87,17 +88,19 @@ public class QRCodeServiceImpl implements QRCodeService {
                 //生成录入信息的二维码图片文件
                 QRCode information = new QRCode(value, new StringBuffer(SAVE_PATH).append(date).append(File.separator).append(value).append("_info.png").toString(), goods);
                 String record = new StringBuffer("http://").append(config.getValue("server_url")).append("/goods/").append(purchase.getGoods().getGoodsId()).append("/register").append("?client=").append(purchase.getValue()).toString();
-                information.setUrl(WechatUtil.queryShortURL(record));
+                information.setUrl(record);
                 response = generate(information);
                 if (response.getResponseCode() == ResponseCode.RESPONSE_ERROR) {
                     message.append(purchase.getValue()).append(", error message: ").append(response.getDescription());
                 }
                 combine(information.getPath());
+                path.add(information.getPath());
                 //保存到数据库
                 response = qrCodeDao.insertQRCode(information);
                 if (response.getResponseCode() != ResponseCode.RESPONSE_OK) {
                     logger.error("绑定二维码信息写入数据库异常, " + response.getDescription());
                 }
+                result.setData(path);
             }
             result.setDescription(message.toString());
         }
