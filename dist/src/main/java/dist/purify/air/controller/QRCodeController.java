@@ -38,7 +38,7 @@ public class QRCodeController {
     public ModelAndView create() {
         ModelAndView view = new ModelAndView();
         Map<String, Object> condition = new HashMap<>();
-        ResultData response = goodsService.queryGoods(condition);
+        ResultData response = goodsService.fetchGoods(condition);
         if (response.getResponseCode() == ResponseCode.RESPONSE_OK) {
             view.addObject("goods", response.getData());
         }

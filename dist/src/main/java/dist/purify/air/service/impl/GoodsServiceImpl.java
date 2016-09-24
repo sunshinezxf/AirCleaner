@@ -1,11 +1,11 @@
 package dist.purify.air.service.impl;
 
 import dist.purify.air.dao.GoodsDao;
+import dist.purify.air.model.goods.Goods4Customer;
 import dist.purify.air.pagination.DataTableParam;
 import dist.purify.air.service.GoodsService;
 import dist.purify.air.utils.ResponseCode;
 import dist.purify.air.utils.ResultData;
-import model.goods.Goods4Customer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +30,14 @@ public class GoodsServiceImpl implements GoodsService {
         result.setResponseCode(response.getResponseCode());
         if (response.getResponseCode() != ResponseCode.RESPONSE_OK) {
             result.setDescription(response.getDescription());
+        } else {
+            result.setData(response.getData());
         }
         return result;
     }
 
     @Override
-    public ResultData queryGoods(Map<String, Object> condition) {
+    public ResultData fetchGoods(Map<String, Object> condition) {
         ResultData result = new ResultData();
         ResultData response = goodsDao.queryGoods(condition);
         result.setResponseCode(response.getResponseCode());
@@ -48,7 +50,7 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public ResultData queryGoods(Map<String, Object> condition, DataTableParam param) {
+    public ResultData fetchGoods(Map<String, Object> condition, DataTableParam param) {
         ResultData result = new ResultData();
         ResultData response = goodsDao.queryGoods(condition, param);
         result.setResponseCode(response.getResponseCode());

@@ -3,15 +3,15 @@ package dist.purify.air.controller;
 import com.thoughtworks.xstream.XStream;
 import dist.purify.air.utils.PlatformConfig;
 import dist.purify.air.utils.WechatUtil;
-import model.wechat.InMessage;
+import dist.purify.air.model.wechat.InMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import utils.Encryption;
-import utils.XStreamFactory;
+import dist.purify.air.utils.Encryption;
+import dist.purify.air.utils.XStreamFactory;
 
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;

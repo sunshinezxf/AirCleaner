@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="purify.air.goods">
-    <resultMap id="goodsVo" type="model.goods.Goods4Customer">
+    <resultMap id="goodsVo" type="dist.purify.air.model.goods.Goods4Customer">
         <result property="goodsId" column="goods_id"></result>
         <result property="goodsName" column="goods_name"></result>
         <result property="primePrice" column="prime_price"></result>
@@ -11,7 +11,7 @@
         <result property="createAt" column="create_time"></result>
     </resultMap>
 
-    <insert id="insert" parameterType="model.goods.Goods4Customer">
+    <insert id="insert" parameterType="dist.purify.air.model.goods.Goods4Customer">
         INSERT INTO airburg.goods(goods_id, goods_name, prime_price, share_price, goods_description, block_flag, create_time)
         VALUES (#{goodsId}, #{goodsName}, #{primePrice}, #{sharePrice}, #{goodsDescription}, #{blockFlag}, #{createAt})
     </insert>

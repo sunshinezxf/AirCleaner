@@ -1,0 +1,24 @@
+<script>
+    $(document).ready(function () {
+        var open_id = "$!{openId}";
+        if (is_weixin() && !not_null(open_id)) {
+            window.location.href = "${oauthURL}";
+        }
+    })
+
+    function is_weixin() {
+        var ua = navigator.userAgent.toLowerCase();
+        if (ua.match(/MicroMessenger/i) == "micromessenger") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function not_null(item) {
+        if (item == null || item == "" || item.length <= 0) {
+            return false;
+        }
+        return true;
+    }
+</script>

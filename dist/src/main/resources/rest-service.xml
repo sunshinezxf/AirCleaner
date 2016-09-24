@@ -6,4 +6,10 @@
     <bean id="goodsService" class="dist.purify.air.service.impl.GoodsServiceImpl"></bean>
 
     <bean id="qrCodeService" class="dist.purify.air.service.impl.QRCodeServiceImpl"></bean>
+
+    <bean id="orderService" class="dist.purify.air.service.impl.OrderServiceImpl"></bean>
+
+    <bean id="billService" class="dist.purify.air.service.impl.BillServiceImpl"></bean>
+
+    <bean id="chargeService" class="dist.purify.air.service.impl.ChargeServiceImpl"></bean>
 </beans>

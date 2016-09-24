@@ -2,12 +2,12 @@ package dist.purify.air.dao.impl;
 
 import dist.purify.air.dao.BaseDao;
 import dist.purify.air.dao.GoodsDao;
+import dist.purify.air.model.goods.Goods4Customer;
 import dist.purify.air.pagination.DataTablePage;
 import dist.purify.air.pagination.DataTableParam;
 import dist.purify.air.utils.IDGenerator;
 import dist.purify.air.utils.ResponseCode;
 import dist.purify.air.utils.ResultData;
-import model.goods.Goods4Customer;
 import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

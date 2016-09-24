@@ -359,6 +359,20 @@ footer .under {
     font-size: 1.05em;
 }
 
+.pre_price {
+    color: #808080;
+    float: left;
+    font-size: 0.8em;
+    text-decoration: line-through;
+}
+
+.now_price {
+    float: left;
+    margin-left: 0.2em;
+    font-size: 0.8em;
+    color: #d0c080;
+}
+
 .sum_price {
     color: #21BBF0;
 }
@@ -397,4 +411,8 @@ footer .under {
 
 .btn_disabled {
     color: #D9D9D9;
+}
+
+section img {
+    width: 100%;
 }

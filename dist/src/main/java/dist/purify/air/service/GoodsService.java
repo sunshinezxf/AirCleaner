@@ -1,8 +1,8 @@
 package dist.purify.air.service;
 
+import dist.purify.air.model.goods.Goods4Customer;
 import dist.purify.air.pagination.DataTableParam;
 import dist.purify.air.utils.ResultData;
-import model.goods.Goods4Customer;
 
 import java.util.Map;
 
@@ -12,7 +12,7 @@ import java.util.Map;
 public interface GoodsService {
     ResultData createGoods(Goods4Customer goods);
 
-    ResultData queryGoods(Map<String, Object> condition);
+    ResultData fetchGoods(Map<String, Object> condition);
 
-    ResultData queryGoods(Map<String, Object> condition, DataTableParam param);
+    ResultData fetchGoods(Map<String, Object> condition, DataTableParam param);
 }

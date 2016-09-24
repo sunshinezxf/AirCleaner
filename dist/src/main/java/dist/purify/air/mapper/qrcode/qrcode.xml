@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="purify.air.qrcode">
-    <resultMap id="qrcodeVo" type="model.qrcode.QRCode">
+    <resultMap id="qrcodeVo" type="dist.purify.air.model.qrcode.QRCode">
         <result property="codeId" column="code_id"></result>
         <result property="value" column="code_value"></result>
         <result property="path" column="code_path"></result>
@@ -11,7 +11,7 @@
         <association property="goods" column="goodsId = goods_id" select=""></association>
     </resultMap>
 
-    <insert id="insert" parameterType="model.qrcode.QRCode">
+    <insert id="insert" parameterType="dist.purify.air.model.qrcode.QRCode">
         INSERT INTO airburg.qrcode(code_id, goods_id, code_value, code_path, code_url, block_flag, create_time)
         VALUES (#{codeId}, #{goods.goodsId}, #{value}, #{path}, #{url}, #{blockFlag}, #{createAt})
     </insert>

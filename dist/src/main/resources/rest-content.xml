@@ -80,6 +80,8 @@
 
                 /plugins/** = anon
 
+                /bill/inform = anon
+
                 /** = anon
             </value>
         </property>

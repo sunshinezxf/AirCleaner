@@ -4,5 +4,7 @@
     <mappers>
         <mapper resource="dist/purify/air/mapper/goods/goods.xml"></mapper>
         <mapper resource="dist/purify/air/mapper/qrcode/qrcode.xml"></mapper>
+        <mapper resource="dist/purify/air/mapper/order/consumerorder.xml"></mapper>
+        <mapper resource="dist/purify/air/mapper/bill/orderbill.xml"></mapper>
     </mappers>
 </configuration>

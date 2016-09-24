@@ -1,57 +1,59 @@
 #parse("/common/util.vm")
-<html>
+<html lang="zh_CN">
 <head>
-    #parse("/client/component/init/init_lib.vm")
     #parse("/client/component/init/responsive_lib.vm")
+    #parse("/client/component/init/init_lib.vm")
     #parse("/client/component/init/weui_lib.vm")
     #parse("/client/component/init/location_lib.vm")
     <link rel="stylesheet" type="text/css" href="${path.concat('/material/client/css/style.css')}">
-    <title>购买</title>
+    <title>智慧新风</title>
 </head>
 <body ontouchstart>
-<header>
-    <img width="40%" src="${path.concat('/material/client/image/logo.png')}">
-</header>
-<main>
-    <div id="image-slider">
-        <img class="slider active" width="100%" src="${path.concat('/material/client/image/home-s1.jpg')}">
-        <img class="slider" width="100%" src="${path.concat('/material/client/image/home-s2.jpg')}">
-
-        <div id="canvas">
-            <canvas id="mycanvas"></canvas>
-        </div>
+<div class="article">
+    <div class="bd" style="padding-bottom: 50px;">
+        <section>
+            <img src="${path.concat('/material/client/image/newfj/newfj_01.jpg')}"/>
+        </section>
+        <section>
+            <img src="${path.concat('/material/client/image/newfj/newfj_02.jpg')}"/>
+        </section>
+        <section>
+            <img src="${path.concat('/material/client/image/newfj/newfj_03.jpg')}"/>
+        </section>
+        <section>
+            <img src="${path.concat('/material/client/image/newfj/newfj_04.jpg')}"/>
+        </section>
+        <section>
+            <img src="${path.concat('/material/client/image/newfj/newfj_05.jpg')}"/>
+        </section>
+        <section>
+            <img src="${path.concat('/material/client/image/newfj/newfj_06.jpg')}"/>
+        </section>
+        <section>
+            <img src="${path.concat('/material/client/image/newfj/newfj_07.jpg')}"/>
+        </section>
+        <section>
+            <img src="${path.concat('/material/client/image/newfj/newfj_08.jpg')}"/>
+        </section>
+        <section>
+            <img src="${path.concat('/material/client/image/newfj/newfj_09.jpg')}"/>
+        </section>
+        <section>
+            <img src="${path.concat('/material/client/image/newfj/newfj_10.jpg')}"/>
+        </section>
     </div>
-    <div id="introduction">
-        <div>
-            <img src="${path.concat('/material/client/image/lightpoint-1.png')}">
-
-            <p>搭载健康"空气盾牌"<br/>
-                净化室内空气<br/>
-                时刻与清新空气亲密接触</p>
-        </div>
-        <div>
-            <img src="${path.concat('/material/client/image/lightpoint-2.png')}">
-
-            <p>时刻发现空气问题<br/>
-                提供解决方案<br/>
-                您身边最聪明的智能空气管家</p>
-        </div>
-        <div>
-            <img src="${path.concat('/material/client/image/lightpoint-3.png')}">
-
-            <p>出门在外，APP遥控<br/>
-                清新有氧好空气<br/>
-                随时随地一手掌握</p>
-        </div>
-    </div>
-</main>
+</div>
 <footer>
     <div class="upper">
-        <div class="name">
-            <p>空气堡</p>
-        </div>
         <div class="price">
-            <p>￥<span id="goods_price">10000</span>/台<span class="postStyle">(包邮)</span></p>
+            <div id="agent_price" class="price">
+                <div class="pre_price">￥${goods.primePrice}</div>
+                <div class="now_price">${goods.sharePrice}/<span class="pieces">台</span><span
+                        class="postStyle">(包邮)</span></div>
+            </div>
+        </div>
+        <div class="name">
+            <p>智慧新风</p>
         </div>
     </div>
     <div class="under">
@@ -154,7 +156,8 @@
                                 <label class="id_label">优惠码</label>
                             </td>
                             <td class="bd">
-                                <input id="agent_id" class="id_input" type="text" placeholder="可输入优惠码" value=""/>
+                                <input id="client_id" class="id_input" type="text" placeholder="可输入优惠码"
+                                       value="$!{client}" disabled/>
                             </td>
                         </tr>
                     </table>
@@ -162,17 +165,17 @@
             </div>
             <div class="confirm_area">
                 <div class="total_info">
-                    <div class="total_num">
-                        <p>共
-
-                        <p id="total_num">1</p>台
-                        </p>
-                    </div>
-                    <div class="total_money">
-                        <p class="sum">应付总额：</p>
-
-                        <p id="total_price" class="sum_price">10000元</p>
-                    </div>
+                ##                    <div class="total_num">
+##                        <p>共
+##
+##                        <p id="total_num">1</p>台
+##                        </p>
+##                    </div>
+##                    <div class="total_money">
+##                        <p class="sum">应付总额：</p>
+##
+##                        <p id="total_price" class="sum_price">10000元</p>
+##                    </div>
                 </div>
                 <div class="to_pay">
                     <button id="confirm" class="weui_btn weui_btn_disabled weui_btn_default" disabled="disabled">支付
@@ -193,4 +196,103 @@
     </div>
 </div>
 </body>
+    #parse("/client/component/wechat/wechat_config.vm")
+<script type="text/javascript" src="${path.concat('/material/client/js/purchase.js')}"></script>
+<script>
+    $(function () {
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = "${path.concat('/plugins/pingxx/pingpp_one.js')}";
+        document.body.appendChild(script);
+
+        $(document).on('pingpp_one_ready', function () {
+            $('#confirm').click(function () {
+                //检查优惠码是否正确
+                pay();
+            });
+        });
+    });
+
+    var clientId = "${client}";
+    var openId = '$!{openId}';
+
+    function pay() {
+        var goodsId = "${goodsId}";
+        var url = "${path.concat('/goods/')}" + "purchase/" + goodsId;
+        var clientId = $("#client_id").val();
+        var goodsNum = $('#goods_num').val();
+        var customerName = $('#customer_name').val();
+        var phone = $('#customer_phone').val();
+        var address;
+
+        if ($("#dist").is(":hidden")) {
+            if ($("#city").is(":hidden")) {
+                address = $("#prov").val() + $("#customer_address").val();
+            } else {
+                address = $("#prov").val() + $("#city").val() + $("#customer_address").val();
+            }
+        } else {
+            address = $("#prov").val() + $("#city").val() + $("#dist").val() + $("#customer_address").val();
+        }
+
+        var param = {
+            clientId: clientId,
+            goodsQuantity: goodsNum,
+            consumerName: customerName,
+            consumerPhone: phone,
+            consumerAddress: address,
+            wechat: openId
+        };
+        $.post(url, param, function (result) {
+            if (result.responseCode == "RESPONSE_OK") {
+                var data = result.data;
+                pingpp_one.init({
+                    app_id: "app_DazjbTLybjHGbv9O",
+                    amount: data.totalFee,
+                    channel: ['wx_pub'],
+                    charge_url: "${path.concat('/payment/consumer/create')}",
+                    charge_param: {order_id: data.orderId},
+                    open_id: '${openId}',
+                    debug: true
+                }, function (result) {
+                    //debug 模式下获取 charge_url 的返回结果
+                    if (result.debug && result.chargeUrlOutput) {
+                        console.log(result.chargeUrlOutput);
+                    }
+                    if (!result.status) {
+                        //处理错误
+                        $("#fail_dialog").show();
+                    }
+                    else {
+                        //debug 模式下调用 charge_url 后会暂停，可以调用 pingpp_one.resume 方法继续执行
+                        if (result.debug && !result.wxSuccess) {
+                            if (confirm('当前为 debug 模式，是否继续支付？')) {
+                                pingpp_one.resume();
+                            }
+                        }
+                        //若微信公众号渠道需要使用壹收款的支付成功页面，则在这里进行成功回调，
+                        //调用 pingpp_one.success 方法，你也可以自己定义回调函数
+                        //其他渠道的处理方法请见第 2 节
+                        else {
+                            $('.unslider-fade').hide();
+                            $('.unslider-nav').hide();
+                            $('.weui_actionsheet').hide();
+                            $('.weui_mask_transition').hide();
+                            pingpp_one.success(function (result) {
+                                if (!result.status) {
+                                    $("#fail_dialog").show();
+                                }
+                            }, function () {
+                                //这里处理支付成功页面点击“继续购物”按钮触发的方法，
+                                //例如：若你需要点击“继续购物”按钮跳转到你的购买页，
+                                //则在该方法内写入 window.location.href = "你的购买页面 url"
+                                window.location.href = "/goods/" + goodsId + "/purchase?client=" + clientId;
+                            });
+                        }
+                    }
+                });
+            }
+        });
+    }
+</script>
 </html>

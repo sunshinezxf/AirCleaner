@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="purify.air.bill.order_bill">
+    <resultMap id="orderBillVo" type="dist.purify.air.model.bill.OrderBill">
+        <result property="billId" column="bill_id"></result>
+        <result property="billAmount" column="bill_amount"></result>
+        <result property="channel" column="bill_channel"></result>
+        <result property="payAccount" column="pay_account"></result>
+        <result property="clientIp" column="client_ip"></result>
+        <result property="status" column="bill_status"
+                typeHandler="dist.purify.air.reflection.bill.BillStatusHandler"></result>
+        <result property="blockFlag" column="block_flag"></result>
+        <result property="createAt" column="create_time"></result>
+        <association property="order" column="orderId = order_id" select="orderQuery"></association>
+    </resultMap>
+
+    <resultMap id="consumerOrderVo" type="dist.purify.air.model.order.ConsumerOrder">
+        <result property="orderId" column="order_id"></result>
+        <result property="consumerWechat" column="consumer_wechat"></result>
+        <result property="consumerName" column="consumer_name"></result>
+        <result property="consumerPhone" column="consumer_phone"></result>
+        <result property="consumerAddress" column="consumer_address"></result>
+        <result property="purchasePrice" column="purchase_price"></result>
+        <result property="goodsQuantity" column="goods_quantity"></result>
+        <result property="totalFee" column="total_fee"></result>
+        <result property="status" column="order_status"
+                typeHandler="dist.purify.air.reflection.order.OrderStatusHandler"></result>
+        <result property="blockFlag" column="block_flag"></result>
+        <result property="createAt" column="create_time"></result>
+    </resultMap>
+
+    <insert id="insert" parameterType="dist.purify.air.model.bill.OrderBill" useGeneratedKeys="false">
+        INSERT INTO order_bill(bill_id, order_id, bill_amount, bill_channel, client_ip, bill_status, block_flag, create_time)
+        VALUES (#{billId}, #{order.orderId}, #{billAmount}, #{channel}, #{clientIp}, #{status, typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler}, #{blockFlag}, #{createAt})
+    </insert>
+
+    <select id="query" parameterType="java.util.Map" resultMap="orderBillVo">
+        SELECT bill_id, order_id, bill_amount, bill_channel, client_ip, bill_status, block_flag, create_time
+        FROM airburg.order_bill
+        WHERE 1 = 1
+        <if test="billId != null">
+            AND bill_id = #{billId}
+        </if>
+        <if test="orderId != null">
+            AND order_id = #{orderId}
+        </if>
+        <if test="channel != null">
+            AND bill_channel = #{channel}
+        </if>
+        <if test="status != null">
+            AND bill_status = #{status}
+        </if>
+    </select>
+
+    <select id="orderQuery" parameterType="java.util.Map" resultMap="consumerOrderVo">
+        SELECT order_id, goods_id, consumer_wechat, consumer_name, consumer_phone, consumer_address, purchase_price,
+        goods_quantity, total_fee, order_status, block_flag, create_time
+        FROM airburg.consume_order
+        WHERE order_id = #{orderId}
+    </select>
+</mapper>

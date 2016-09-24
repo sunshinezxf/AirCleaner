@@ -1,16 +1,8 @@
-var RADIUS = 4;
-var WINDOW_WIDTH = $("body").width();
-var WINDOW_HEIGHT = $("body").height();
-
-var canvas = document.getElementById("mycanvas");
-canvas.width = WINDOW_WIDTH;
-var ctx = canvas.getContext("2d");
 var count;
 var forbidden = false;
 
 $(document).ready(function () {
     showImage();
-    initialPage();
     count = setInterval(function () {
         image_slider();
     }, 3000);
@@ -29,7 +21,7 @@ $(document).ready(function () {
     check_num();
 
     $('#province').citySelect({
-        url: '${path.concat("/plugins/location/city.min.js")}',
+        url: '../../../plugins/location/city.min.js',
         required: false,
         nodata: 'none',//当子集无数据时，隐藏select
     });
@@ -149,7 +141,6 @@ function image_slider() {
         if ($(".slider").eq(i).hasClass("active")) {
             $(".slider").eq(i).removeClass("active");
             $(".slider").eq(i).fadeOut("fast", function () {
-                clearPage();
                 if ((i + 1) == $(".slider").length) {
                     $(".slider").eq(0).addClass("active");
                     $(".slider").eq(0).fadeIn("fast");
@@ -157,7 +148,6 @@ function image_slider() {
                     $(".slider").eq(i + 1).addClass("active");
                     $(".slider").eq(i + 1).fadeIn("fast");
                 }
-                initialPage();
             });
             break;
         }
@@ -169,7 +159,6 @@ function reverse_image_slider() {
         if ($(".slider").eq(i).hasClass("active")) {
             $(".slider").eq(i).removeClass("active");
             $(".slider").eq(i).fadeOut("fast", function () {
-                clearPage();
                 if ((i - 1) < 0) {
                     $(".slider").eq($(".slider").length - 1).addClass("active");
                     $(".slider").eq($(".slider").length - 1).fadeIn("fast");
@@ -177,7 +166,6 @@ function reverse_image_slider() {
                     $(".slider").eq(i - 1).addClass("active");
                     $(".slider").eq(i - 1).fadeIn("fast");
                 }
-                initialPage();
             });
             break;
         }
@@ -187,28 +175,6 @@ function reverse_image_slider() {
 function showImage() {
     $(".slider.active").show();
     $(".slider:not(.active)").hide();
-}
-
-function initialPage() {
-    var image_width = $("#canvas").width();
-    var image_height = $("#mycanvas").height();
-    var num = $(".slider").length;
-    var remain_width = image_width - (RADIUS + 5) * 2 * num;
-    for (var i = 0; i < num; i++) {
-        ctx.beginPath();
-        ctx.arc(remain_width / 2 + (i * 2 + 1) * (RADIUS + 5), image_height - 20, RADIUS, 0, 2 * Math.PI);
-        ctx.closePath();
-        if ($(".slider").eq(i).hasClass("active")) {
-            ctx.fillStyle = "#21BBF0";
-        } else {
-            ctx.fillStyle = "#ccc";
-        }
-        ctx.fill();
-    }
-}
-
-function clearPage() {
-    ctx.clearRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 }
 
 $.toggleNumModifySheet = function () {
@@ -249,9 +215,6 @@ function addressInfo_validate() {
     var name = $('#customer_name').val();
     var phone = $('#customer_phone').val();
     var address = $('#customer_address').val();
-    if (second_time_purchase) {
-        address = $('#history_address').val();
-    }
     var area;
     if ($("#prov").val() == "北京" || $("#prov").val() == "天津" || $("#prov").val() == "上海" || $("#prov").val() == "重庆" || $("#prov").val() == "香港" || $("#prov").val() == "澳门" || $("#prov").val() == "台湾") {
         area = $("#city").val();
@@ -262,7 +225,7 @@ function addressInfo_validate() {
             area = $("#dist").val();
         }
     }
-    if (not_null(name) && not_null(phone) && not_null(address) && (not_null(area) || second_time_purchase)) {
+    if (not_null(name) && not_null(phone) && not_null(address) && (not_null(area))) {
         return true;
     } else {
         return false;
@@ -289,7 +252,6 @@ function not_null(item) {
     }
     return true;
 }
-
 
 document.addEventListener("touchmove", function (e) {
     if (forbidden) {

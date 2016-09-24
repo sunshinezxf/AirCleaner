@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="purify.air.order.consumer_order">
+    <resultMap id="consumerOrderVo" type="dist.purify.air.model.order.ConsumerOrder">
+        <result property="orderId" column="order_id"></result>
+        <result property="consumerWechat" column="consumer_wechat"></result>
+        <result property="consumerName" column="consumer_name"></result>
+        <result property="consumerPhone" column="consumer_phone"></result>
+        <result property="consumerAddress" column="consumer_address"></result>
+        <result property="purchasePrice" column="purchase_price"></result>
+        <result property="goodsQuantity" column="goods_quantity"></result>
+        <result property="totalFee" column="total_fee"></result>
+        <result property="status" column="order_status"
+                typeHandler="dist.purify.air.reflection.order.OrderStatusHandler"></result>
+        <result property="blockFlag" column="block_flag"></result>
+        <result property="createAt" column="create_time"></result>
+        <association property="goods" column="goodsId = goods_id" select="goodsQuery"></association>
+    </resultMap>
+
+    <resultMap id="goodsVo" type="dist.purify.air.model.goods.Goods4Customer">
+        <result property="goodsId" column="goods_id"></result>
+        <result property="goodsName" column="goods_name"></result>
+        <result property="primePrice" column="prime_price"></result>
+        <result property="sharePrice" column="share_price"></result>
+        <result property="goodsDescription" column="goods_description"></result>
+        <result property="blockFlag" column="block_flag"></result>
+        <result property="createAt" column="create_time"></result>
+    </resultMap>
+
+    <insert id="insert" parameterType="dist.purify.air.model.order.ConsumerOrder" useGeneratedKeys="false">
+        INSERT INTO consumer_order(order_id, goods_id, consumer_wechat, consumer_name, consumer_phone, consumer_address, purchase_price, goods_quantity, total_fee, order_status, block_flag, create_time)
+        VALUES (#{orderId}, #{goods.goodsId}, #{consumerWechat}, #{consumerName}, #{consumerPhone}, #{consumerAddress}, #{purchasePrice}, #{goodsQuantity}, #{totalFee}, #{status, typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler}, #{blockFlag}, #{createAt})
+    </insert>
+
+    <select id="query" parameterType="java.util.Map" resultMap="consumerOrderVo">
+        SELECT order_id, goods_id, consumer_wechat, consumer_name, consumer_phone, consumer_address, purchase_price,
+        goods_quantity, total_fee, order_status, block_flag, create_time
+        FROM airburg.consumer_order
+        WHERE 1 = 1
+        <if test="orderId != null">
+            AND order_id = #{orderId}
+        </if>
+        <if test="goodsId != null">
+            AND goods_id = #{goodsId}
+        </if>
+        <if test="consumerWechat != null">
+            AND consumer_wechat = #{consumerWechat}
+        </if>
+        <if test="consumerName != null">
+            AND consumer_name = #{consumerName}
+        </if>
+        <if test="consumerPhone != null">
+            AND consumer_phone = #{consumerPhone}
+        </if>
+    </select>
+
+    <select id="goodsQuery" parameterType="java.util.Map" resultMap="goodsVo">
+        SELECT goods_id, goods_name, prime_price, share_price, goods_description, block_flag, create_time
+        FROM airburg.goods
+        WHERE goods_id = #{goodsId}
+    </select>
+</mapper>

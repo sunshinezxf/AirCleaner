@@ -1,7 +1,5 @@
 package dist.purify.air.utils;
 
-import utils.GlobalUtil;
-
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;

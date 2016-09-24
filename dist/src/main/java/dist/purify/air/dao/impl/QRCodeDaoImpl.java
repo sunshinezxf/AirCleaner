@@ -5,7 +5,7 @@ import dist.purify.air.dao.QRCodeDao;
 import dist.purify.air.utils.IDGenerator;
 import dist.purify.air.utils.ResponseCode;
 import dist.purify.air.utils.ResultData;
-import model.qrcode.QRCode;
+import dist.purify.air.model.qrcode.QRCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
