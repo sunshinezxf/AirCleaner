@@ -8,10 +8,7 @@ import dist.purify.air.pagination.DataTablePage;
 import dist.purify.air.pagination.DataTableParam;
 import dist.purify.air.service.GoodsService;
 import dist.purify.air.service.OrderService;
-import dist.purify.air.utils.PlatformConfig;
-import dist.purify.air.utils.ResponseCode;
-import dist.purify.air.utils.ResultData;
-import dist.purify.air.utils.WechatUtil;
+import dist.purify.air.utils.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,7 +118,6 @@ public class GoodsController {
         view.addObject("oauthURL", oauthURL);
         Goods4Customer goods = ((List<Goods4Customer>) response.getData()).get(0);
         view.addObject("goods", goods);
-
         if (!StringUtils.isEmpty(client)) {
             view.addObject("client", client);
         }
@@ -132,8 +128,7 @@ public class GoodsController {
             view.setViewName("redirect:/goods" + "/purchase/" + goodsId);
             return view;
         }
-
-
+        WechatConfig.oauthWechat(view, "/goods/purchase/" + goodsId + ((StringUtils.isEmpty(client)) ? "" : "?client=" + client));
         view.setViewName("/client/goods/purchase");
         return view;
     }

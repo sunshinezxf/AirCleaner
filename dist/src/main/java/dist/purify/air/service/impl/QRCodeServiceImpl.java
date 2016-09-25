@@ -34,7 +34,7 @@ import java.util.List;
  */
 @Service
 public class QRCodeServiceImpl implements QRCodeService {
-    private final int DEFAULT_WIDTH = 130, DEFAULT_HEIGHT = 130;
+    private final int DEFAULT_WIDTH = 135, DEFAULT_HEIGHT = 135;
 
     private final static String SAVE_PATH = "/material/qrcode/";
 
@@ -130,8 +130,8 @@ public class QRCodeServiceImpl implements QRCodeService {
             BufferedImage big = ImageIO.read(new File(bg.toString()));
             BufferedImage small = ImageIO.read(new File(qrcode.toString()));
             Graphics2D g = big.createGraphics();
-            int x = 152;
-            int y = 159;
+            int x = 151;
+            int y = 157;
             g.drawImage(small, x, y, small.getWidth(), small.getHeight(), null);
             g.dispose();
             ImageIO.write(big, "png", new File(qrcode.toString()));

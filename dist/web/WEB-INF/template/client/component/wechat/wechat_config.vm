@@ -1,5 +1,15 @@
 <script>
     $(document).ready(function () {
+        var url = window.location.href;
+        if (url.indexOf("jsessionid") > 0 || url.indexOf("from") > 0 || url.indexOf("isappinstalled") > 0) {
+            var url = "${path.concat('/goods/purchase/')}${goodsId}";
+            var client = "$!{client}";
+            if (not_null(client)) {
+                url += "?client=" + client;
+            }
+            window.location.href = url;
+        }
+
         var open_id = "$!{openId}";
         if (is_weixin() && !not_null(open_id)) {
             window.location.href = "${oauthURL}";

@@ -34,6 +34,17 @@
         VALUES (#{billId}, #{order.orderId}, #{billAmount}, #{channel}, #{clientIp}, #{status, typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler}, #{blockFlag}, #{createAt})
     </insert>
 
+    <update id="update" parameterType="dist.purify.air.model.bill.OrderBill" useGeneratedKeys="false">
+        UPDATE airburg.order_bill
+        <set>
+            <if test="status != null">
+                bill_status = #{status, typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},
+            </if>
+            bill_id = #{billId}
+        </set>
+        WHERE bill_id = #{billId}
+    </update>
+
     <select id="query" parameterType="java.util.Map" resultMap="orderBillVo">
         SELECT bill_id, order_id, bill_amount, bill_channel, client_ip, bill_status, block_flag, create_time
         FROM airburg.order_bill
@@ -53,9 +64,8 @@
     </select>
 
     <select id="orderQuery" parameterType="java.util.Map" resultMap="consumerOrderVo">
-        SELECT order_id, goods_id, consumer_wechat, consumer_name, consumer_phone, consumer_address, purchase_price,
-        goods_quantity, total_fee, order_status, block_flag, create_time
-        FROM airburg.consume_order
+        SELECT order_id, goods_id, consumer_wechat, consumer_name, consumer_phone, consumer_address, purchase_price, goods_quantity, total_fee, order_status, block_flag, create_time
+        FROM airburg.consumer_order
         WHERE order_id = #{orderId}
     </select>
 </mapper>

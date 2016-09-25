@@ -58,8 +58,8 @@ footer .upper {
     flex-direction: row;
 }
 
-.upper .name {
-    width: 8em;
+.upper .name, .upper .price {
+    width: 45%;
     padding-left: 1em;
 }
 

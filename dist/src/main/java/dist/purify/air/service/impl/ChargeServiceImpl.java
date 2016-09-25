@@ -35,12 +35,6 @@ public class ChargeServiceImpl implements ChargeService {
     @Override
     public ResultData createCharge(OrderBill bill, String openId) {
         ResultData result = new ResultData();
-        ResultData response = billDao.insertBill(bill);
-        if (response.getResponseCode() != ResponseCode.RESPONSE_OK) {
-            result.setResponseCode(ResponseCode.RESPONSE_ERROR);
-            result.setDescription(response.getDescription());
-        }
-        bill = (OrderBill) response.getData();
         Map<String, Object> params = new HashMap<>();
         params.put("order_no", bill.getBillId());
         params.put("amount", bill.getBillAmount() * 100);

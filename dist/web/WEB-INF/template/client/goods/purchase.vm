@@ -45,15 +45,24 @@
 </div>
 <footer>
     <div class="upper">
-        <div class="price">
-            <div id="agent_price" class="price">
-                <div class="pre_price">￥${goods.primePrice}</div>
-                <div class="now_price">${goods.sharePrice}/<span class="pieces">台</span><span
-                        class="postStyle">(包邮)</span></div>
-            </div>
-        </div>
         <div class="name">
-            <p>智慧新风</p>
+            <p>$!{goods.goodsName}</p>
+        </div>
+
+        <div class="price">
+            <p id="agent_price">
+                #if(${client})
+                    <span class="pre_price">￥${goods.primePrice}</span><span class="now_price">
+                    $!{goods.sharePrice}
+                    /<span class="pieces">台</span><span
+                        class="postStyle">(包邮)</span></span>
+                #else
+                    <span class="now_price">$!{goods.primePrice}/<span
+                            class="pieces">台</span><span
+                            class="postStyle">(包邮)</span></span>
+                #end
+
+            </p>
         </div>
     </div>
     <div class="under">
@@ -165,17 +174,16 @@
             </div>
             <div class="confirm_area">
                 <div class="total_info">
-                ##                    <div class="total_num">
-##                        <p>共
-##
-##                        <p id="total_num">1</p>台
-##                        </p>
-##                    </div>
-##                    <div class="total_money">
-##                        <p class="sum">应付总额：</p>
-##
-##                        <p id="total_price" class="sum_price">10000元</p>
-##                    </div>
+                    <div class="total_num">
+                        <p>共
+                            <span id="total_num">1</span>台
+                        </p>
+                    </div>
+                    <div class="total_money">
+                        <p class="sum">应付总额：</p>
+
+                        <p id="total_price" class="sum_price"></p>
+                    </div>
                 </div>
                 <div class="to_pay">
                     <button id="confirm" class="weui_btn weui_btn_disabled weui_btn_default" disabled="disabled">支付
@@ -197,7 +205,8 @@
 </div>
 </body>
     #parse("/client/component/wechat/wechat_config.vm")
-<script type="text/javascript" src="${path.concat('/material/client/js/purchase.js')}"></script>
+    #parse("/client/component/wechat/validate.vm")
+    #parse("/client/goods/component/purchase_event.vm")
 <script>
     $(function () {
         var script = document.createElement('script');
@@ -252,7 +261,7 @@
                     channel: ['wx_pub'],
                     charge_url: "${path.concat('/payment/consumer/create')}",
                     charge_param: {order_id: data.orderId},
-                    open_id: '${openId}',
+                    open_id: openId,
                     debug: true
                 }, function (result) {
                     //debug 模式下获取 charge_url 的返回结果
@@ -286,7 +295,7 @@
                                 //这里处理支付成功页面点击“继续购物”按钮触发的方法，
                                 //例如：若你需要点击“继续购物”按钮跳转到你的购买页，
                                 //则在该方法内写入 window.location.href = "你的购买页面 url"
-                                window.location.href = "/goods/" + goodsId + "/purchase?client=" + clientId;
+                                window.location.href = "/goods" + "/purchase/" + goodsId + "?client=" + clientId;
                             });
                         }
                     }
@@ -294,5 +303,12 @@
             }
         });
     }
+
+    //设置分享页面的标题和描述
+    var title = "${goods.goodsName}";
+
+    var description = "${goods.goodsDescription}";
+
+
 </script>
 </html>

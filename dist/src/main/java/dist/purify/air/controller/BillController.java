@@ -3,6 +3,7 @@ package dist.purify.air.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.pingplusplus.model.Event;
 import com.pingplusplus.model.Webhooks;
+import dist.purify.air.model.bill.OrderBill;
 import dist.purify.air.model.bill.ext.BillStatus;
 import dist.purify.air.service.BillService;
 import dist.purify.air.utils.JSONUtil;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -61,6 +63,18 @@ public class BillController {
             Map<String, Object> condition = new HashMap<>();
             condition.put("billId", billId);
             condition.put("status", BillStatus.NOT_PAYED.getCode());
+            ResultData fetchResponse = billService.fetchBill(condition);
+            if (fetchResponse.getResponseCode() != ResponseCode.RESPONSE_OK) {
+                result.setResponseCode(ResponseCode.RESPONSE_NULL);
+                result.setDescription("不存在改编号的支付订单");
+                return result;
+            }
+            OrderBill bill = ((List<OrderBill>) fetchResponse.getData()).get(0);
+            bill.setStatus(BillStatus.PAYED);
+            ResultData modiResponse = billService.modifyBill(bill);
+            if (modiResponse.getResponseCode() != ResponseCode.RESPONSE_OK) {
+                response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            }
         }
         return result;
     }

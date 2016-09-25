@@ -58,4 +58,21 @@ public class BillDaoImpl extends BaseDao implements BillDao {
             return result;
         }
     }
+
+    @Override
+    public ResultData updateBill(OrderBill bill) {
+        ResultData result = new ResultData();
+        synchronized (lock) {
+            try {
+                sqlSession.update("purify.air.bill.order_bill.update", bill);
+                result.setData(bill);
+            } catch (Exception e) {
+                logger.error(e.getMessage());
+                result.setResponseCode(ResponseCode.RESPONSE_ERROR);
+                result.setDescription(e.getMessage());
+            } finally {
+                return result;
+            }
+        }
+    }
 }

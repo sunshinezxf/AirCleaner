@@ -12,4 +12,6 @@ public interface BillDao {
     ResultData insertBill(OrderBill bill);
 
     ResultData queryBill(Map<String, Object> condition);
+
+    ResultData updateBill(OrderBill bill);
 }

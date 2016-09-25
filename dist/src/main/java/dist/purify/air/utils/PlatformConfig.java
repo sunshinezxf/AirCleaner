@@ -48,6 +48,9 @@ public class PlatformConfig {
     }
 
     public static String getJsapiTicket() {
+        if (StringUtils.isEmpty(jsapiTicket)) {
+            getAccessToken();
+        }
         return jsapiTicket;
     }
 

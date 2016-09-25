@@ -1,5 +1,6 @@
 package dist.purify.air.utils;
 
+import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
@@ -45,9 +46,10 @@ public class WechatConfig {
 
     public static void oauthWechat(ModelAndView view, String urlBase) {
         String url = "http://" + PlatformConfig.instance().getValue("server_url") + urlBase;
-        String configUrl = url + "";
+        String configUrl = url;
         Configuration configuration = WechatConfig.config(configUrl);
         configuration.setShareLink(url);
+        logger.debug("configuration: " + JSON.toJSONString(configuration));
         view.addObject("configuration", configuration);
     }
 

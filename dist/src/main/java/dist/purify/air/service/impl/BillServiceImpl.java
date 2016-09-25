@@ -38,7 +38,26 @@ public class BillServiceImpl implements BillService {
     @Override
     public ResultData fetchBill(Map<String, Object> condition) {
         ResultData result = new ResultData();
+        ResultData response = billDao.queryBill(condition);
+        result.setResponseCode(response.getResponseCode());
+        if (response.getResponseCode() != ResponseCode.RESPONSE_OK) {
+            result.setDescription(response.getDescription());
+        } else {
+            result.setData(response.getData());
+        }
+        return result;
+    }
 
+    @Override
+    public ResultData modifyBill(OrderBill bill) {
+        ResultData result = new ResultData();
+        ResultData response = billDao.updateBill(bill);
+        result.setResponseCode(response.getResponseCode());
+        if (response.getResponseCode() != ResponseCode.RESPONSE_OK) {
+            result.setDescription(response.getDescription());
+        } else {
+            result.setData(response.getData());
+        }
         return result;
     }
 }

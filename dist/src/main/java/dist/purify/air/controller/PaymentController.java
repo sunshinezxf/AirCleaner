@@ -57,6 +57,7 @@ public class PaymentController {
         if (response.getResponseCode() != ResponseCode.RESPONSE_OK) {
             return result;
         }
+        bill = (OrderBill) response.getData();
         response = chargeService.createCharge(bill, params.getString("open_id"));
         if (response.getResponseCode() == ResponseCode.RESPONSE_OK) {
             result = (Charge) response.getData();
