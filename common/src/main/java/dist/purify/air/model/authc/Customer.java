@@ -1,4 +1,4 @@
-package dist.purify.air.model.user;
+package dist.purify.air.model.authc;
 
 /**
  * Created by sunshine on 16/9/13.

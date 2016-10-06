@@ -1,0 +1,120 @@
+.goods_brief_weui {
+    margin-top: 10px;
+}
+
+.weui_cell:before {
+    left: 0;
+}
+
+.goods_brief, .send_fee {
+    background-color: #FFFFFF;
+    width: 100%;
+    padding: 5px;
+    vertical-align: baseline;
+}
+
+.goods_brief_name {
+    font-family: arial, sans-serif;
+    color: #333;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.5;
+    vertical-align: baseline;
+    float: left;
+}
+
+.goods_price {
+    font-family: arial, sans-serif;
+    font-size: 18px;
+    float: left;
+    line-height: 1.5;
+    vertical-align: baseline;
+}
+
+.goods_prev_price {
+    font-family: arial, sans-serif;
+    text-decoration: line-through;
+    font-size: 18px;
+    float: left;
+    line-height: 1.5;
+    vertical-align: baseline;
+}
+
+.goods_current_price {
+    font-family: arial, sans-serif;
+    color: #f60;
+    font-size: 18px;
+    float: left;
+    line-height: 1.5;
+    vertical-align: baseline;
+}
+
+.fee_content {
+    text-align: left;
+}
+
+.goods_description {
+    font-size: 0.5em;
+    color: #747474;
+}
+
+.goods_intro {
+    margin-top: 10px;
+    padding-bottom: 50px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background: #fff;
+    border-top: 1px solid #d2d2d2;
+}
+
+.goods_footer_weui {
+    margin: 0;
+}
+
+.goods_quantity {
+    flex: 1;
+    padding-left: 1em;
+    display: flex;
+    flex-direction: row;
+}
+
+.quantity_choose {
+    flex: 1;
+    padding: 1em auto;
+}
+
+.quantity_choose .min, .quantity_choose .add {
+    width: 25px;
+    border: 0;
+    background-color: #fff;
+    font-size: 16px;
+    color: #21BBF0;
+    padding-left: 0;
+    padding-right: 0;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    vertical-align: baseline;
+}
+
+.quantity_choose .num_box {
+    width: 25px;
+    text-align: center;
+    font-family: arial, sans-serif;
+    font-size: 16px;
+    border: 0;
+    color: #747474;
+    background-color: #fff;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    vertical-align: baseline;
+}
+
+.goods_purchase {
+    font-size: 14px;
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="purify.air.userrole">
+    <resultMap id="userRoleVo" type="dist.purify.air.model.authc.UserRole">
+        <result property="userRoleId" column="user_role_id"></result>
+        <result property="blockFlag" column="block_flag"></result>
+        <result property="createAt" column="create_time"></result>
+        <association property="user" column="userId = user_id"></association>
+        <association property="role" column="roleId = role_id"></association>
+    </resultMap>
+
+    <insert id="insert" parameterMap="dist.purify.air.model.authc.UserRole">
+        INSERT INTO airburg.userrole(user_role_id, user_id, role_id, create_time, block_flag)
+        VALUES (#{userRoleId}, #{user.userId}, #{role.roleId}, #{blockFlag}, #{createAt})
+    </insert>
+</mapper>

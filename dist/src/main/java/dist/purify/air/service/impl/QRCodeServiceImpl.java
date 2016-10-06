@@ -10,6 +10,7 @@ import dist.purify.air.dao.QRCodeDao;
 import dist.purify.air.model.goods.AbstractGoods;
 import dist.purify.air.model.goods.Goods4Customer;
 import dist.purify.air.model.qrcode.QRCode;
+import dist.purify.air.pagination.DataTableParam;
 import dist.purify.air.service.QRCodeService;
 import dist.purify.air.utils.GlobalUtil;
 import dist.purify.air.utils.PlatformConfig;
@@ -34,13 +35,13 @@ import java.util.List;
  */
 @Service
 public class QRCodeServiceImpl implements QRCodeService {
-    private final int DEFAULT_WIDTH = 135, DEFAULT_HEIGHT = 135;
+    private final int DEFAULT_WIDTH = 360, DEFAULT_HEIGHT = 360;
 
     private final static String SAVE_PATH = "/material/qrcode/";
 
     private final static String TEMPLATE_BG_PATH = "/material/backend/image/qrcode_bg.png";
 
-    private final static int FORE_GROUND = 0xFF50507D, BACK_GROUND = 0xFFA1A4AE;
+    private final static int FORE_GROUND = 0xFF495170, BACK_GROUND = 0xFFAAAAB3;
 
     private Logger logger = LoggerFactory.getLogger(QRCodeServiceImpl.class);
 
@@ -49,7 +50,7 @@ public class QRCodeServiceImpl implements QRCodeService {
     @Autowired
     private QRCodeDao qrCodeDao;
 
-    public ResultData create(String prefix, int num, String goodsId) {
+    public ResultData createQRCode(String prefix, int num, String goodsId) {
         ResultData result = new ResultData();
         PlatformConfig config = PlatformConfig.instance();
         if (num <= 0) {
@@ -94,13 +95,26 @@ public class QRCodeServiceImpl implements QRCodeService {
     }
 
     @Override
-    public ResultData query(Map<String, Object> condition) {
+    public ResultData fetchQRCode(Map<String, Object> condition) {
         ResultData result = new ResultData();
         ResultData response = qrCodeDao.queryQRCode(condition);
         result.setResponseCode(response.getResponseCode());
         return result;
     }
 
+    @Override
+    public ResultData fetchQRCode(Map<String, Object> condition, DataTableParam param) {
+        ResultData result = new ResultData();
+
+        return result;
+    }
+
+    /**
+     * 生成二维码图片
+     *
+     * @param code
+     * @return
+     */
     private ResultData generate(QRCode code) {
         ResultData result = new ResultData();
         //保存图片
@@ -130,8 +144,8 @@ public class QRCodeServiceImpl implements QRCodeService {
             BufferedImage big = ImageIO.read(new File(bg.toString()));
             BufferedImage small = ImageIO.read(new File(qrcode.toString()));
             Graphics2D g = big.createGraphics();
-            int x = 151;
-            int y = 157;
+            int x = 433;
+            int y = 453;
             g.drawImage(small, x, y, small.getWidth(), small.getHeight(), null);
             g.dispose();
             ImageIO.write(big, "png", new File(qrcode.toString()));

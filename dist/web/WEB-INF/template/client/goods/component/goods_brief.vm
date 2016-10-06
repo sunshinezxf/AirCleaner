@@ -1,0 +1,37 @@
+#if(${goods})
+<div class="weui_cells goods_brief_weui">
+    <div class="weui_cell weui_cell_primary goods_brief">
+        <div class="weui_cell_bd weui_cell_primary goods_brief_name">
+            ${goods.goodsName}
+        </div>
+        <div class="weui_cell_ft weui_cell_primary goods_price">
+            #if(${client})
+                <div class="goods_prev_price">
+                    ${goods.primePrice}
+                </div>
+                <div class="goods_current_price">
+                    ${goods.sharePrice}元/台
+                </div>
+            #else
+                <div class="goods_current_price">
+                    ${goods.primePrice}元/台
+                </div>
+            #end
+        </div>
+    </div>
+    <div class="weui_cell weui_cell_primary send_fee">
+        <div class="weui_cell_bd weui_cell_primary">
+            运费
+        </div>
+        <div class="weui_cell_ft weui_cell_primary fee_content">
+            包邮
+        </div>
+    </div>
+    <div class="weui_cell">
+        <div class="weui_cell_bd weui_cell_primary goods_description">
+            承诺WHO最高空气标准,全屋24h全天候PM2.5数值<25,未达标准可退款
+            标准安装费500元在安装时收取
+        </div>
+    </div>
+</div>
+#end

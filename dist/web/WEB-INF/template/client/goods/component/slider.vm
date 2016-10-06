@@ -1,0 +1,26 @@
+#if(${goods})
+<div class="fading-slider">
+    <ul>
+        <li><img src="${path.concat('/material/client/image/newfj/newfj_01.jpg')}"></li>
+        <li><img src="${path.concat('/material/client/image/newfj/newfj_02.jpg')}"></li>
+        <li><img src="${path.concat('/material/client/image/newfj/newfj_03.jpg')}"></li>
+        <li><img src="${path.concat('/material/client/image/newfj/newfj_04.jpg')}"></li>
+        <li><img src="${path.concat('/material/client/image/newfj/newfj_05.jpg')}"></li>
+        <li><img src="${path.concat('/material/client/image/newfj/newfj_06.jpg')}"></li>
+    </ul>
+</div>
+<script>
+    $(document).ready(function () {
+        var width = document.body.clientWidth;
+        var height = width;
+
+        $(".fading-slider").attr("style", "height: " + width + "px;");
+
+        $(".fading-slider").unslider({
+            animation: 'fade',
+            autoplay: true,
+            arrows: false
+        });
+    });
+</script>
+#end

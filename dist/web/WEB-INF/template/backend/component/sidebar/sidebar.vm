@@ -15,6 +15,18 @@
                 </ul>
             </li>
             <li>
+                <a class="menu" data-toggle="collapse" data-parent="#accordion" href="#qrcode-management"><i
+                        class="fa fa-book"></i> 二维码<i
+                        class="pull-right fa fa-caret-down"></i></a>
+                <ul id="qrcode-management" class="nav nav-collapse collapse">
+                    <li>
+                        <a class="sub-nav" href="${path.concat('/qrcode/overview')}">
+                            <span class="nav-item"><i class="fa fa-edit"></i>二维码库存</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
                 <a class="menu" data-toggle="collapse" data-parent="#accordion" href="#util-management"><i
                         class="fa fa-book"></i> 配置管理<i
                         class="pull-right fa fa-caret-down"></i></a>
@@ -31,6 +43,7 @@
 </div>
 <script>
     $("#goods-management").collapse('hide');
+    $("#qrcode-management").collapse('hide');
     $("#util-management").collapse('hide');
 
     $(function () {
@@ -38,7 +51,7 @@
         $("#" + target_id).collapse('show');
     });
 
-    var array = ["#goods-management", "#util-management"];
+    var array = ["#goods-management", "#qrcode-management", "#util-management"];
 
     $(".menu").click(function () {
         var menu_id = $(this).attr("href");

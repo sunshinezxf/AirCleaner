@@ -2,10 +2,10 @@ package dist.purify.air.dao.impl;
 
 import dist.purify.air.dao.BaseDao;
 import dist.purify.air.dao.QRCodeDao;
+import dist.purify.air.model.qrcode.QRCode;
 import dist.purify.air.utils.IDGenerator;
 import dist.purify.air.utils.ResponseCode;
 import dist.purify.air.utils.ResultData;
-import dist.purify.air.model.qrcode.QRCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -44,7 +44,7 @@ public class QRCodeDaoImpl extends BaseDao implements QRCodeDao {
     public ResultData queryQRCode(Map<String, Object> condition) {
         ResultData result = new ResultData();
         try {
-            List<QRCode> list = sqlSession.selectList("purify.air.qrcode.insert", condition);
+            List<QRCode> list = sqlSession.selectList("purify.air.qrcode.query", condition);
             if (list.isEmpty()) {
                 result.setResponseCode(ResponseCode.RESPONSE_NULL);
             }

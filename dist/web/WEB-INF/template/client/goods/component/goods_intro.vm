@@ -1,0 +1,53 @@
+<div class="goods_intro">
+    <section>
+        <img src="${path.concat('/material/client/image/newfj/newfj_desc_01.jpg')}"/>
+    </section>
+    <section>
+        <img src="${path.concat('/material/client/image/newfj/newfj_desc_02.jpg')}"/>
+    </section>
+    <section>
+        <img src="${path.concat('/material/client/image/newfj/newfj_desc_03.jpg')}"/>
+    </section>
+    <section>
+        <img src="${path.concat('/material/client/image/newfj/newfj_desc_04.jpg')}"/>
+    </section>
+    <section>
+        <img src="${path.concat('/material/client/image/newfj/newfj_desc_05.jpg')}"/>
+    </section>
+    <section>
+        <img src="${path.concat('/material/client/image/newfj/newfj_desc_06.jpg')}"/>
+    </section>
+    <section>
+        <img src="${path.concat('/material/client/image/newfj/newfj_desc_07.jpg')}"/>
+    </section>
+    <section>
+        <img src="${path.concat('/material/client/image/newfj/newfj_desc_08.jpg')}"/>
+    </section>
+    <section>
+        <img src="${path.concat('/material/client/image/newfj/newfj_desc_09.jpg')}"/>
+    </section>
+    <section>
+        <img src="${path.concat('/material/client/image/newfj/newfj_desc_10.jpg')}"/>
+    </section>
+    <section>
+        <img src="${path.concat('/material/client/image/newfj/newfj_desc_11.jpg')}"/>
+    </section>
+    <section>
+        <img src="${path.concat('/material/client/image/newfj/newfj_desc_12.jpg')}"/>
+    </section>
+    <section>
+        <img src="${path.concat('/material/client/image/newfj/newfj_desc_13.jpg')}"/>
+    </section>
+    <section>
+        <img src="${path.concat('/material/client/image/newfj/newfj_desc_14.jpg')}"/>
+    </section>
+    <section>
+        <img src="${path.concat('/material/client/image/newfj/newfj_desc_15.jpg')}"/>
+    </section>
+    <section>
+        <img src="${path.concat('/material/client/image/newfj/newfj_desc_16.jpg')}"/>
+    </section>
+    <section>
+        <img src="${path.concat('/material/client/image/newfj/newfj_desc_17.jpg')}"/>
+    </section>
+</div>

@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,14 +73,22 @@ public class GoodsController {
     @RequestMapping(method = RequestMethod.GET, value = "/overview")
     public ModelAndView overview() {
         ModelAndView view = new ModelAndView();
-
+        view.setViewName("/backend/goods/overview");
         return view;
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/overview")
     public DataTablePage<Goods4Customer> overview(DataTableParam param) {
         DataTablePage<Goods4Customer> result = new DataTablePage<>();
-
+        if (StringUtils.isEmpty(param)) {
+            return result;
+        }
+        Map<String, Object> condition = new HashMap<>();
+        ResultData response = goodsService.fetchGoods(condition, param);
+        if (response.getResponseCode() != ResponseCode.RESPONSE_OK) {
+            logger.debug("获取商品列表为空或者发生错误");
+        }
+        result = (DataTablePage) response.getData();
         return result;
     }
 
@@ -99,7 +108,7 @@ public class GoodsController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/purchase/{goodsId}")
-    public ModelAndView purchase(@PathVariable("goodsId") String goodsId, String client, String code, String state, HttpServletRequest request) {
+    public ModelAndView purchase(@PathVariable("goodsId") String goodsId, String client, String code, String state, HttpServletRequest request) throws IOException {
         ModelAndView view = new ModelAndView();
         Map<String, Object> condition = new HashMap<>();
         condition.put("goodsId", goodsId);
@@ -107,7 +116,7 @@ public class GoodsController {
         ResultData response = goodsService.fetchGoods(condition);
         if (response.getResponseCode() != ResponseCode.RESPONSE_OK) {
             //该商品不存在或目前已经下架
-
+            logger.error("商品不存在或者读取异常");
         }
         //获取商品的标识
         view.addObject("goodsId", goodsId);
@@ -129,7 +138,7 @@ public class GoodsController {
             return view;
         }
         WechatConfig.oauthWechat(view, "/goods/purchase/" + goodsId + ((StringUtils.isEmpty(client)) ? "" : "?client=" + client));
-        view.setViewName("/client/goods/purchase");
+        view.setViewName("/client/goods/detail");
         return view;
     }
 

@@ -1,4 +1,4 @@
-package dist.purify.air.model.user;
+package dist.purify.air.model.authc;
 
 import dist.purify.air.model.Entity;
 
