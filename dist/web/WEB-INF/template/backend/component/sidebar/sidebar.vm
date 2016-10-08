@@ -3,6 +3,18 @@
         <ul class="nav nav-sidebar" id="accordion">
             <li><a href="${path.concat('/dashboard')}"><i class="fa fa-desktop"></i> 首页</a></li>
             <li>
+                <a class="menu" data-toggle="collapse" data-parent="#accordion" href="#order-management"><i
+                        class="fa fa-book"></i> 订单管理<i
+                        class="pull-right fa fa-caret-down"></i></a>
+                <ul id="order-management" class="nav nav-collapse collapse">
+                    <li>
+                        <a class="sub-nav" href="${path.concat('/order/overview')}">
+                            <span class="nav-item"><i class="fa fa-edit"></i>客户订单</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
                 <a class="menu" data-toggle="collapse" data-parent="#accordion" href="#goods-management"><i
                         class="fa fa-book"></i> 商品配置<i
                         class="pull-right fa fa-caret-down"></i></a>
@@ -47,6 +59,7 @@
     </div>
 </div>
 <script>
+    $("#order-management").collapse('hide');
     $("#goods-management").collapse('hide');
     $("#qrcode-management").collapse('hide');
     $("#util-management").collapse('hide');
@@ -56,7 +69,7 @@
         $("#" + target_id).collapse('show');
     });
 
-    var array = ["#goods-management", "#qrcode-management", "#util-management"];
+    var array = ["#order-management", "#goods-management", "#qrcode-management", "#util-management"];
 
     $(".menu").click(function () {
         var menu_id = $(this).attr("href");

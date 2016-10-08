@@ -1,6 +1,7 @@
 package dist.purify.air.dao;
 
 import dist.purify.air.model.order.ConsumerOrder;
+import dist.purify.air.pagination.DataTableParam;
 import dist.purify.air.utils.ResultData;
 
 import java.util.Map;
@@ -12,4 +13,8 @@ public interface OrderDao {
     ResultData insertConsumerOrder(ConsumerOrder order);
 
     ResultData queryConsumerOrder(Map<String, Object> condition);
+
+    ResultData queryConsumerOrder(Map<String, Object> condition, DataTableParam param);
+
+    ResultData updateConsumerOrder(ConsumerOrder order);
 }

@@ -43,6 +43,8 @@ public class GoodsServiceImpl implements GoodsService {
         result.setResponseCode(response.getResponseCode());
         if (response.getResponseCode() == ResponseCode.RESPONSE_OK) {
             result.setData(response.getData());
+        } else if (response.getResponseCode() == ResponseCode.RESPONSE_NULL) {
+            result.setData(response.getData());
         } else {
             result.setDescription(response.getDescription());
         }
@@ -55,6 +57,8 @@ public class GoodsServiceImpl implements GoodsService {
         ResultData response = goodsDao.queryGoods(condition, param);
         result.setResponseCode(response.getResponseCode());
         if (response.getResponseCode() == ResponseCode.RESPONSE_OK) {
+            result.setData(response.getData());
+        } else if (response.getResponseCode() == ResponseCode.RESPONSE_NULL) {
             result.setData(response.getData());
         } else {
             result.setDescription(response.getDescription());

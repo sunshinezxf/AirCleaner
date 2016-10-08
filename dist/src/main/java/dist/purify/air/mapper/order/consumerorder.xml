@@ -28,9 +28,29 @@
     </resultMap>
 
     <insert id="insert" parameterType="dist.purify.air.model.order.ConsumerOrder" useGeneratedKeys="false">
-        INSERT INTO consumer_order(order_id, goods_id, consumer_wechat, consumer_name, consumer_phone, consumer_address, purchase_price, goods_quantity, total_fee, order_status, block_flag, create_time)
+        INSERT INTO airburg.consumer_order(order_id, goods_id, consumer_wechat, consumer_name, consumer_phone, consumer_address, purchase_price, goods_quantity, total_fee, order_status, block_flag, create_time)
         VALUES (#{orderId}, #{goods.goodsId}, #{consumerWechat}, #{consumerName}, #{consumerPhone}, #{consumerAddress}, #{purchasePrice}, #{goodsQuantity}, #{totalFee}, #{status, typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler}, #{blockFlag}, #{createAt})
     </insert>
+
+    <update id="update" parameterType="dist.purify.air.model.order.ConsumerOrder" useGeneratedKeys="false">
+        UPDATE airburg.consumer_order
+        <set>
+            <if test="consumerName != null">
+                consumer_name = #{consumerName},
+            </if>
+            <if test="consumerPhone != null">
+                consumer_phone = #{consumerPhone},
+            </if>
+            <if test="consumerAddress != null">
+                consumer_address = #{consumerAddress},
+            </if>
+            <if test="status != null">
+                order_status = #{status},
+            </if>
+            order_id = #{orderId}
+        </set>
+        WHERE order_id = #{orderId}
+    </update>
 
     <select id="query" parameterType="java.util.Map" resultMap="consumerOrderVo">
         SELECT order_id, goods_id, consumer_wechat, consumer_name, consumer_phone, consumer_address, purchase_price,
