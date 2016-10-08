@@ -87,6 +87,7 @@ public class GoodsController {
         ResultData response = goodsService.fetchGoods(condition, param);
         if (response.getResponseCode() != ResponseCode.RESPONSE_OK) {
             logger.debug("获取商品列表为空或者发生错误");
+            return result;
         }
         result = (DataTablePage) response.getData();
         return result;

@@ -12,6 +12,11 @@
                             <span class="nav-item"><i class="fa fa-edit"></i>添加商品</span>
                         </a>
                     </li>
+                    <li>
+                        <a class="sub-nav" href="${path.concat('/goods/overview')}">
+                            <span class="nav-item"><i class="fa fa-tasks"></i>商品概览</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li>
@@ -21,7 +26,7 @@
                 <ul id="qrcode-management" class="nav nav-collapse collapse">
                     <li>
                         <a class="sub-nav" href="${path.concat('/qrcode/overview')}">
-                            <span class="nav-item"><i class="fa fa-edit"></i>二维码库存</span>
+                            <span class="nav-item"><i class="fa fa-tasks"></i>二维码库存</span>
                         </a>
                     </li>
                 </ul>

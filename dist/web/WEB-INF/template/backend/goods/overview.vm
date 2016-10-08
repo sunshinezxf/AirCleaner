@@ -4,14 +4,16 @@
     #parse("/backend/component/init/responsive_lib.vm")
     #parse("/backend/component/init/init_lib.vm")
     #parse("/backend/component/init/bootstrap_lib.vm")
+    #parse("/backend/component/init/datatable_lib.vm")
     #parse("/backend/component/init/fontawesome_lib.vm")
     <link rel="stylesheet" href="${path.concat('/material/backend/css/custom.css')}">
-    <title>商品</title>
+    <title>商品概览</title>
 </head>
 <body>
     #parse("/backend/component/navigator/navigator_with_login.vm")
 <div class="container-fluid">
     #parse("/backend/component/sidebar/sidebar.vm")
+    #parse("/backend/component/content/m_goods_overview.vm")
 </div>
 </body>
 <script type="text/javascript" src="${path.concat('/material/backend/js/validate.js')}"></script>

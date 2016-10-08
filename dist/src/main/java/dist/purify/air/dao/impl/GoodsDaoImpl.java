@@ -86,7 +86,7 @@ public class GoodsDaoImpl extends BaseDao implements GoodsDao {
         ResultData result = new ResultData();
         DataTablePage<Goods4Customer> page = new DataTablePage<>(param);
         ResultData total = queryGoods(condition);
-        if (total.getResponseCode() == ResponseCode.RESPONSE_OK) {
+        if (total.getResponseCode() == ResponseCode.RESPONSE_ERROR) {
             result.setResponseCode(ResponseCode.RESPONSE_ERROR);
             result.setDescription(total.getDescription());
             return result;
