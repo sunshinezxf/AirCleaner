@@ -15,6 +15,7 @@ public class QRCode extends Entity {
     private String value;
     private String path;
     private String url;
+    private boolean occupied;
 
     public QRCode() {
         super();
@@ -24,6 +25,7 @@ public class QRCode extends Entity {
         this();
         this.value = value;
         this.path = new StringBuffer(DEFAULT_PATH).append(codeId).append(DEFAULT_FORMAT).toString();
+        this.occupied = false;
     }
 
     public QRCode(String value, AbstractGoods goods) {
@@ -90,5 +92,13 @@ public class QRCode extends Entity {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public boolean isOccupied() {
+        return occupied;
+    }
+
+    public void setOccupied(boolean occupied) {
+        this.occupied = occupied;
     }
 }

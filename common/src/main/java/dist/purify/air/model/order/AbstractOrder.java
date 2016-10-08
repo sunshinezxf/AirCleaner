@@ -54,4 +54,11 @@ public abstract class AbstractOrder extends Entity {
         this.totalFee = totalFee;
     }
 
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
 }
