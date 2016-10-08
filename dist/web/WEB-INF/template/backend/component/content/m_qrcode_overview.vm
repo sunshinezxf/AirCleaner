@@ -9,4 +9,5 @@
             </ol>
         </div>
     </div>
+    #parse("/backend/qrcode/component/qr_overview_form.vm")
 </div>

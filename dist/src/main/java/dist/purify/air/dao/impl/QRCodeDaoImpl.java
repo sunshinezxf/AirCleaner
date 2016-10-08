@@ -3,13 +3,17 @@ package dist.purify.air.dao.impl;
 import dist.purify.air.dao.BaseDao;
 import dist.purify.air.dao.QRCodeDao;
 import dist.purify.air.model.qrcode.QRCode;
+import dist.purify.air.pagination.DataTablePage;
+import dist.purify.air.pagination.DataTableParam;
 import dist.purify.air.utils.IDGenerator;
 import dist.purify.air.utils.ResponseCode;
 import dist.purify.air.utils.ResultData;
+import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -55,6 +59,42 @@ public class QRCodeDaoImpl extends BaseDao implements QRCodeDao {
             result.setDescription(e.getMessage());
         } finally {
             return result;
+        }
+    }
+
+    @Override
+    public ResultData queryQRCode(Map<String, Object> condition, DataTableParam param) {
+        ResultData result = new ResultData();
+        DataTablePage<QRCode> page = new DataTablePage<>(param);
+        ResultData total = queryQRCode(condition);
+        if (total.getResponseCode() == ResponseCode.RESPONSE_ERROR) {
+            result.setResponseCode(ResponseCode.RESPONSE_ERROR);
+            result.setDescription(total.getDescription());
+            return result;
+        } else if (total.getResponseCode() == ResponseCode.RESPONSE_NULL) {
+            result.setResponseCode(ResponseCode.RESPONSE_NULL);
+            result.setDescription(total.getDescription());
+            return result;
+        }
+        page.setiTotalRecords(((List) total.getData()).size());
+        page.setiTotalDisplayRecords(((List) total.getData()).size());
+        List<QRCode> current = queryQRCode(condition, param.getiDisplayStart(), param.getiDisplayLength());
+        if (current.isEmpty()) {
+            result.setResponseCode(ResponseCode.RESPONSE_NULL);
+        }
+        page.setData(current);
+        result.setData(page);
+        return result;
+    }
+
+    private List<QRCode> queryQRCode(Map<String, Object> condition, int start, int length) {
+        List<QRCode> list = new ArrayList<>();
+        try {
+            list = sqlSession.selectList("purify.air.qrcode.query", condition, new RowBounds(start, length));
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+        } finally {
+            return list;
         }
     }
 }

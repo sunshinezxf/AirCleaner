@@ -35,7 +35,7 @@ import java.util.List;
  */
 @Service
 public class QRCodeServiceImpl implements QRCodeService {
-    private final int DEFAULT_WIDTH = 360, DEFAULT_HEIGHT = 360;
+    private final int DEFAULT_WIDTH = 361, DEFAULT_HEIGHT = 361;
 
     private final static String SAVE_PATH = "/material/qrcode/";
 
@@ -80,7 +80,7 @@ public class QRCodeServiceImpl implements QRCodeService {
                 if (response.getResponseCode() == ResponseCode.RESPONSE_ERROR) {
                     message.append(purchase.getValue()).append(", error message: ").append(response.getDescription());
                 }
-                combine(purchase.getPath());
+                combine(purchase.getPath(), value);
                 path.add(purchase.getPath());
                 //保存到数据库
                 response = qrCodeDao.insertQRCode(purchase);
@@ -105,7 +105,15 @@ public class QRCodeServiceImpl implements QRCodeService {
     @Override
     public ResultData fetchQRCode(Map<String, Object> condition, DataTableParam param) {
         ResultData result = new ResultData();
-
+        ResultData response = qrCodeDao.queryQRCode(condition, param);
+        result.setResponseCode(response.getResponseCode());
+        if (response.getResponseCode() == ResponseCode.RESPONSE_OK) {
+            result.setData(response.getData());
+        } else if (response.getResponseCode() == ResponseCode.RESPONSE_NULL) {
+            result.setData(response.getData());
+        } else {
+            result.setDescription(response.getDescription());
+        }
         return result;
     }
 
@@ -136,7 +144,7 @@ public class QRCodeServiceImpl implements QRCodeService {
         }
     }
 
-    private ResultData combine(String path) {
+    private ResultData combine(String path, String value) {
         ResultData result = new ResultData();
         try {
             StringBuffer bg = new StringBuffer(GlobalUtil.retrivePath()).append(TEMPLATE_BG_PATH);
@@ -144,9 +152,15 @@ public class QRCodeServiceImpl implements QRCodeService {
             BufferedImage big = ImageIO.read(new File(bg.toString()));
             BufferedImage small = ImageIO.read(new File(qrcode.toString()));
             Graphics2D g = big.createGraphics();
-            int x = 433;
-            int y = 453;
+            int x = 434;
+            int y = 455;
             g.drawImage(small, x, y, small.getWidth(), small.getHeight(), null);
+            x = 350;
+            y = 1075;
+            Font font = new Font("arial", Font.PLAIN, 50);
+            g.setColor(Color.BLACK);
+            g.setFont(font);
+            g.drawString(value, x, y);
             g.dispose();
             ImageIO.write(big, "png", new File(qrcode.toString()));
         } catch (Exception e) {

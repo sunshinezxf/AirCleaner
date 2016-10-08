@@ -4,6 +4,7 @@
     #parse("/backend/component/init/responsive_lib.vm")
     #parse("/backend/component/init/init_lib.vm")
     #parse("/backend/component/init/bootstrap_lib.vm")
+    #parse("/backend/component/init/datatable_lib.vm")
     #parse("/backend/component/init/fontawesome_lib.vm")
     <link rel="stylesheet" href="${path.concat('/material/backend/css/custom.css')}">
     <title>二维码概览</title>
