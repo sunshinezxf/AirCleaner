@@ -1,6 +1,7 @@
 package dist.purify.air.service;
 
 import dist.purify.air.model.order.ConsumerOrder;
+import dist.purify.air.model.qrcode.QRCode;
 import dist.purify.air.pagination.DataTableParam;
 import dist.purify.air.utils.ResultData;
 

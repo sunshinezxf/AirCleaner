@@ -40,7 +40,6 @@
             columns: [
                 {title: "二维码编号", "mData": "value"},
                 {title: "所属商品", "mData": "goods.goodsName"},
-                {title: "购买链接", "mData": "url"},
                 {
                     title: "状态", "mRender": function (data, type, full) {
                     var occupied = full.occupied;
@@ -58,6 +57,9 @@
                     var operation_list = "";
                     var view_btn = "<button class='btn btn-primary'>查看</button>&nbsp;";
                     operation_list += view_btn;
+                    var download_url = "${path.concat('/qrcode/')}" + full.codeId + "/download";
+                    var download_btn = "<a class='btn btn-success' href='" + download_url + "'>下载</a>&nbsp;"
+                    operation_list += download_btn;
                     return operation_list;
                 }
                 }

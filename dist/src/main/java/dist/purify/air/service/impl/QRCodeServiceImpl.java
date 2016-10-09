@@ -25,6 +25,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -99,6 +100,13 @@ public class QRCodeServiceImpl implements QRCodeService {
         ResultData result = new ResultData();
         ResultData response = qrCodeDao.queryQRCode(condition);
         result.setResponseCode(response.getResponseCode());
+        if (response.getResponseCode() == ResponseCode.RESPONSE_OK) {
+            result.setData(response.getData());
+        } else if (response.getResponseCode() == ResponseCode.RESPONSE_NULL) {
+            result.setData(response.getData());
+        } else {
+            result.setDescription(response.getDescription());
+        }
         return result;
     }
 
@@ -113,6 +121,31 @@ public class QRCodeServiceImpl implements QRCodeService {
             result.setData(response.getData());
         } else {
             result.setDescription(response.getDescription());
+        }
+        return result;
+    }
+
+    @Override
+    public ResultData fetchQRCodeFile(QRCode code) {
+        ResultData result = new ResultData();
+        String base = GlobalUtil.retrivePath();
+        String path = new StringBuffer(base).append(code.getPath()).toString();
+        File file = new File(path);
+        if (!file.exists()) {
+            File directory = new File(file.getParent());
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+            generate(code);
+            combine(code.getPath(), code.getValue());
+        }
+        try {
+            BufferedImage image = ImageIO.read(new FileInputStream(path));
+            result.setData(image);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            result.setResponseCode(ResponseCode.RESPONSE_ERROR);
+            return result;
         }
         return result;
     }

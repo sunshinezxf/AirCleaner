@@ -14,12 +14,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,6 +75,31 @@ public class QRCodeController {
         view.addObject("file", file);
         view.setViewName("/backend/qrcode/download");
         return view;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/{codeId}/download")
+    public String download(@PathVariable("codeId") String codeId, HttpServletResponse response) {
+        if (StringUtils.isEmpty(codeId)) {
+            return "";
+        }
+        Map<String, Object> condition = new HashMap<>();
+        condition.put("codeId", codeId);
+        ResultData r = qrCodeService.fetchQRCode(condition);
+        if (r.getResponseCode() != ResponseCode.RESPONSE_OK) {
+            logger.error("获取code_id为: " + codeId + "的二维码不存在或者发生异常");
+            return "";
+        }
+        QRCode code = ((List<QRCode>) r.getData()).get(0);
+        r = qrCodeService.fetchQRCodeFile(code);
+        if (r.getResponseCode() == ResponseCode.RESPONSE_OK) {
+            try {
+                ImageIO.write((BufferedImage) r.getData(), "image/png", response.getOutputStream());
+                response.flushBuffer();
+            } catch (Exception e) {
+                logger.error(e.getMessage());
+            }
+        }
+        return null;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/overview")

@@ -1,5 +1,6 @@
 package dist.purify.air.service;
 
+import dist.purify.air.model.qrcode.QRCode;
 import dist.purify.air.pagination.DataTableParam;
 import dist.purify.air.utils.ResultData;
 
@@ -14,4 +15,6 @@ public interface QRCodeService {
     ResultData fetchQRCode(Map<String, Object> condition);
 
     ResultData fetchQRCode(Map<String, Object> condition, DataTableParam param);
+
+    ResultData fetchQRCodeFile(QRCode code);
 }
