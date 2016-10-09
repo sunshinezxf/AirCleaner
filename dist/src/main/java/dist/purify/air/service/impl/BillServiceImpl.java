@@ -1,6 +1,7 @@
 package dist.purify.air.service.impl;
 
 import dist.purify.air.dao.BillDao;
+import dist.purify.air.dao.OrderDao;
 import dist.purify.air.model.bill.OrderBill;
 import dist.purify.air.service.BillService;
 import dist.purify.air.utils.ResponseCode;
@@ -10,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**

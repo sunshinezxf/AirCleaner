@@ -5,7 +5,10 @@ import com.pingplusplus.model.Event;
 import com.pingplusplus.model.Webhooks;
 import dist.purify.air.model.bill.OrderBill;
 import dist.purify.air.model.bill.ext.BillStatus;
+import dist.purify.air.model.order.ConsumerOrder;
+import dist.purify.air.model.order.ext.OrderStatus;
 import dist.purify.air.service.BillService;
+import dist.purify.air.service.OrderService;
 import dist.purify.air.utils.JSONUtil;
 import dist.purify.air.utils.ResponseCode;
 import dist.purify.air.utils.ResultData;
@@ -39,6 +42,9 @@ public class BillController {
     @Autowired
     private BillService billService;
 
+    @Autowired
+    private OrderService orderService;
+
     @RequestMapping(method = RequestMethod.POST, value = "/inform/payment")
     public ResultData inform(HttpServletRequest request, HttpServletResponse response) {
         ResultData result = new ResultData();
@@ -71,9 +77,21 @@ public class BillController {
             }
             OrderBill bill = ((List<OrderBill>) fetchResponse.getData()).get(0);
             bill.setStatus(BillStatus.PAYED);
-            ResultData modiResponse = billService.modifyBill(bill);
-            if (modiResponse.getResponseCode() != ResponseCode.RESPONSE_OK) {
+            ResultData r = billService.modifyBill(bill);
+            if (r.getResponseCode() != ResponseCode.RESPONSE_OK) {
                 response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+                return result;
+            }
+            condition.clear();
+            condition = new HashMap<>();
+            condition.put("orderId", bill.getOrder().getOrderId());
+            ConsumerOrder target = bill.getOrder();
+            target.setStatus(OrderStatus.PAYED);
+            r = orderService.renovateConsumerOrder(target);
+            if (r.getResponseCode() != ResponseCode.RESPONSE_OK) {
+                response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+                logger.error("订单状态更新失败");
+                return result;
             }
         }
         return result;

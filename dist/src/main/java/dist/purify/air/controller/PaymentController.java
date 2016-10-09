@@ -45,7 +45,7 @@ public class PaymentController {
         Charge result = new Charge();
         JSONObject params = JSONUtil.getParams(request);
         String clientIp = IPUtil.getIP(request);
-        Map<String, Object> condition = new HashMap<String, Object>();
+        Map<String, Object> condition = new HashMap<>();
         condition.put("orderId", String.valueOf(params.get("order_id")));
         ResultData response = orderService.fetchConsumerOrder(condition);
         if (response.getResponseCode() != ResponseCode.RESPONSE_OK) {
