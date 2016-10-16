@@ -47,6 +47,15 @@ public class ChargeServiceImpl implements ChargeService {
             user.put("open_id", openId);
             params.put("extra", user);
         }
+        if (!StringUtils.isEmpty(bill.getChannel()) && bill.getChannel().equals("alipay_wap")) {
+            Map<String, String> url = new HashMap<>();
+            String server = PlatformConfig.instance().getValue("server_url");
+            String success = new StringBuffer("http://").append(server).append("/payment/").append(bill.getBillId()).append("/result/success").toString();
+            String cancel = new StringBuffer("http://").append(server).append("/payment/").append(bill.getBillId()).append("/result/failure").toString();
+            url.put("success_url", success);
+            url.put("cancel_url", cancel);
+            params.put("extra", url);
+        }
         params.put("currency", "cny");
         params.put("client_ip", bill.getClientIp());
         params.put("subject", "订单支付");

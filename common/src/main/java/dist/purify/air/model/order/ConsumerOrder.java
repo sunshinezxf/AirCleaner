@@ -10,6 +10,8 @@ public class ConsumerOrder extends AbstractOrder {
 
     private Goods4Customer goods;
 
+    private String clientId;
+
     private String consumerWechat;
 
     private String consumerName;
@@ -35,8 +37,9 @@ public class ConsumerOrder extends AbstractOrder {
         this.consumerAddress = consumerAddress;
     }
 
-    public ConsumerOrder(String consumerWechat, String consumerName, String consumerPhone, String consumerAddress, Goods4Customer goods, double purchasePrice, int goodsQuantity) {
+    public ConsumerOrder(String clientId, String consumerWechat, String consumerName, String consumerPhone, String consumerAddress, Goods4Customer goods, double purchasePrice, int goodsQuantity) {
         this(consumerWechat, consumerName, consumerPhone, consumerAddress);
+        this.clientId = clientId;
         this.goods = goods;
         setPurchasePrice(purchasePrice);
         setGoodsQuantity(goodsQuantity);
@@ -49,6 +52,14 @@ public class ConsumerOrder extends AbstractOrder {
 
     public void setGoods(Goods4Customer goods) {
         this.goods = goods;
+    }
+
+    public String getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
     }
 
     public String getConsumerWechat() {

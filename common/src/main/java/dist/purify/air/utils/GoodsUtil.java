@@ -5,7 +5,7 @@ package dist.purify.air.utils;
  */
 public class GoodsUtil {
     public static double calculateOrderFee(double price, int quantity) {
-        int tPrice = ((int) price * 100);
+        int tPrice = (int) (price * 100);
         int tTotal = tPrice * quantity;
         return tTotal * 1.0 / 100;
     }

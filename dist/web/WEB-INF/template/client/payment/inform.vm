@@ -1,0 +1,40 @@
+#parse("/common/util.vm")
+<html lang="zh_CN">
+<head>
+    #parse("/client/component/init/responsive_lib.vm")
+    #parse("/client/component/init/init_lib.vm")
+    #parse("/client/component/init/weui_lib.vm")
+    <title>消息通知</title>
+</head>
+<body ontouchstart>
+<div class="container">
+    <div class="page">
+        <div class="weui_msg">
+            <div class="weui_icon_area">
+                #if(${prompt.code} == 'SUCCESS')
+                    <i class="weui_icon_msg weui_icon_success"></i>
+                #elseif(${prompt.code} == 'WARNING')
+                    <i class="weui_icon_msg weui_icon_waiting"></i>
+                #else
+                    <i class="weui_icon_msg weui_icon_warn"></i>
+                #end
+            </div>
+            <div class="weui_text_area">
+                <p class="weui_msg_desc">
+                    #if(${prompt})
+                        ${prompt.message}
+                    #end
+                </p>
+            </div>
+            <div class="weui_opr_area">
+                <img src="${path.concat('/material/backend/image/qrcode.jpg')}"/>
+
+                <p class="weui_btn_area">
+                    <button class="weui_btn weui_btn_primary" id="confirm">关闭</button>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

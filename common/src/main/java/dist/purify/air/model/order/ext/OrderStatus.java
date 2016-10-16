@@ -4,7 +4,7 @@ package dist.purify.air.model.order.ext;
  * Created by sunshine on 16/9/22.
  */
 public enum OrderStatus {
-    SAVED(0), NOT_PAYED(1), PAYED(2), DELIVERED(3), RECEIVED(4);
+    SAVED(0), NOT_PAYED(1), PAYED(2), DELIVERED(3), RECEIVED(4), INSTALLED(5);
 
     private int code;
 

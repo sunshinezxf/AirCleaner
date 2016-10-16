@@ -428,3 +428,7 @@ footer .under {
 section img {
     width: 100%;
 }
+
+.weui_actionsheet {
+    z-index: 10;
+}

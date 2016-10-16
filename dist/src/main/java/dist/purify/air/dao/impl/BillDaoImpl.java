@@ -38,7 +38,6 @@ public class BillDaoImpl extends BaseDao implements BillDao {
                 return result;
             }
         }
-
     }
 
     @Override

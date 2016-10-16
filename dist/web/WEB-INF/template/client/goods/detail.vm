@@ -28,6 +28,7 @@
     #parse("/client/component/wechat/wechat_config.vm")
     #parse("/client/component/wechat/validate.vm")
     #parse("/client/goods/component/purchase_event.vm")
+<script type="text/javascript" src="${path.concat('/material/client/js/ap.js')}"></script>
 <script>
     $(function () {
         var script = document.createElement('script');
@@ -76,13 +77,13 @@
         $.post(url, param, function (result) {
             if (result.responseCode == "RESPONSE_OK") {
                 var data = result.data;
+
                 pingpp_one.init({
                     app_id: "app_DazjbTLybjHGbv9O",
                     amount: data.totalFee,
-                    channel: ['wx_pub'],
+                    channel: ['alipay_wap'],
                     charge_url: "${path.concat('/payment/consumer/create')}",
                     charge_param: {order_id: data.orderId},
-                    open_id: openId,
                     debug: false
                 }, function (result) {
                     //debug 模式下获取 charge_url 的返回结果

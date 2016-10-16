@@ -4,6 +4,7 @@
     <resultMap id="consumerOrderVo" type="dist.purify.air.model.order.ConsumerOrder">
         <result property="orderId" column="order_id"></result>
         <result property="consumerWechat" column="consumer_wechat"></result>
+        <result property="clientId" column="client_id"></result>
         <result property="consumerName" column="consumer_name"></result>
         <result property="consumerPhone" column="consumer_phone"></result>
         <result property="consumerAddress" column="consumer_address"></result>
@@ -28,13 +29,16 @@
     </resultMap>
 
     <insert id="insert" parameterType="dist.purify.air.model.order.ConsumerOrder" useGeneratedKeys="false">
-        INSERT INTO airburg.consumer_order(order_id, goods_id, consumer_wechat, consumer_name, consumer_phone, consumer_address, purchase_price, goods_quantity, total_fee, order_status, block_flag, create_time)
-        VALUES (#{orderId}, #{goods.goodsId}, #{consumerWechat}, #{consumerName}, #{consumerPhone}, #{consumerAddress}, #{purchasePrice}, #{goodsQuantity}, #{totalFee}, #{status, typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler}, #{blockFlag}, #{createAt})
+        INSERT INTO airburg.consumer_order(order_id, goods_id, client_id, consumer_wechat, consumer_name, consumer_phone, consumer_address, purchase_price, goods_quantity, total_fee, order_status, block_flag, create_time)
+        VALUES (#{orderId}, #{goods.goodsId}, #{clientId}, #{consumerWechat}, #{consumerName}, #{consumerPhone}, #{consumerAddress}, #{purchasePrice}, #{goodsQuantity}, #{totalFee}, #{status, typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler}, #{blockFlag}, #{createAt})
     </insert>
 
     <update id="update" parameterType="dist.purify.air.model.order.ConsumerOrder" useGeneratedKeys="false">
         UPDATE airburg.consumer_order
         <set>
+            <if test="clientId != null">
+                client_id = #{clientId},
+            </if>
             <if test="consumerName != null">
                 consumer_name = #{consumerName},
             </if>
@@ -53,8 +57,8 @@
     </update>
 
     <select id="query" parameterType="java.util.Map" resultMap="consumerOrderVo">
-        SELECT order_id, goods_id, consumer_wechat, consumer_name, consumer_phone, consumer_address, purchase_price,
-        goods_quantity, total_fee, order_status, block_flag, create_time
+        SELECT order_id, goods_id, client_id, consumer_wechat, consumer_name, consumer_phone, consumer_address,
+        purchase_price, goods_quantity, total_fee, order_status, block_flag, create_time
         FROM airburg.consumer_order
         WHERE 1 = 1
         <if test="orderId != null">

@@ -1,4 +1,4 @@
-<div id="actionSheet_wrap">
+<div id="actionSheet_wrap" class="order_form">
     <div class="weui_mask_transition" id="number_div" style="display: none;"></div>
     <div class="weui_actionsheet" id="weui_actionsheet">
         <div class="weui_actionsheet_menu">

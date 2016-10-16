@@ -1,12 +1,13 @@
 <div class="row">
     <div class="col-md-12 col-lg-12">
-        <table id="order_table" class="table table-striped table-bordered" cellspacing="0" width="100%"></table>
+        <table id="order_table" class="table table-striped" cellspacing="1" width="100%"></table>
     </div>
 </div>
 <script>
     $(document).ready(function () {
+        var type = 'PAYED';
         $("#order_table").DataTable({
-            searching: false,
+            searching: true,
             ordering: false,
             paging: true,
             "sPaginationType": "full_numbers",
@@ -40,29 +41,54 @@
             columns: [
                 {title: "订单编号", "mData": "orderId"},
                 {title: "顾客姓名", "mData": "consumerName"},
-                {title: "商品名称", "mData": "goods.goodsName"},
-                {title: "商品数量", "mData": "goodsQuantity"},
+                {title: "订购数量", "mData": "goodsQuantity"},
                 {
-                    title: "订单状态", "mRender": function (data, type, full) {
-                    switch (full.status) {
-                        case 'SAVED':
-                            return "订单已保存";
-                        case 'NOT_PAYED':
-                            return "订单未付款";
-                        case 'PAYED':
-                            return "订单已付款";
-                        case 'DELIVERED':
-                            return "订单已发货";
-                        case 'RECEIVED':
-                            return "订单已签收";
+                    title: "已付款", "mRender": function (data, type, full) {
+                    if (full.status == 'PAYED' || full.status == 'DELIVERED' || full.status == 'RECEIVED' || full.status == 'INSTALLED') {
+                        return "✔ ";
+                    } else {
+                        return "✘ ";
+                    }
+                }
+                },
+                {
+                    title: "已发货", "mRender": function (data, type, full) {
+                    if (full.status == 'DELIVERED' || full.status == 'RECEIVED' || full.status == 'INSTALLED') {
+                        return "✔ ";
+                    } else {
+                        return "✘ ";
+                    }
+                }
+                },
+                {
+                    title: "已安装", "mRender": function (data, type, full) {
+                    if (full.status == 'INSTALLED') {
+                        return "✔ ";
+                    } else {
+                        return "✘ ";
                     }
                 }
                 },
                 {
                     title: "操作", "mRender": function (data, type, full) {
                     var operation_list = '';
-                    var deliver = "<button class='btn btn-success'>发货</button>"
-                    operation_list += deliver;
+                    var view_btn = "<button class='btn btn-primary'>查看</button>&nbsp;";
+                    operation_list += view_btn;
+                    var action_btn = "";
+                    switch (full.status) {
+                        case 'NOT_PAYED':
+                            action_btn += "<button class='btn btn-success'>付款</button>&nbsp;";
+                            break;
+                        case 'PAYED':
+                            action_btn += "<button class='btn btn-success'>发货</button>&nbsp;";
+                            break;
+                        case 'RECEIVED':
+                            action_btn += "<button class='btn btn-success'>完成</button>&nbsp;"
+                            break;
+                        default :
+                            break;
+                    }
+                    operation_list += action_btn;
                     return operation_list;
                 }
                 }

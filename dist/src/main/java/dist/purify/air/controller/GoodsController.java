@@ -9,6 +9,8 @@ import dist.purify.air.pagination.DataTableParam;
 import dist.purify.air.service.GoodsService;
 import dist.purify.air.service.OrderService;
 import dist.purify.air.utils.*;
+import dist.purify.air.vo.prompt.Prompt;
+import dist.purify.air.vo.prompt.PromptCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,6 +120,10 @@ public class GoodsController {
         if (response.getResponseCode() != ResponseCode.RESPONSE_OK) {
             //该商品不存在或目前已经下架
             logger.error("商品不存在或者读取异常");
+            Prompt prompt = new Prompt(PromptCode.ERROR, "您所要访问的商品不存在");
+            view.addObject("prompt", prompt);
+            view.setViewName("/client/payment/inform");
+            return view;
         }
         //获取商品的标识
         view.addObject("goodsId", goodsId);
@@ -156,7 +162,7 @@ public class GoodsController {
         }
         Goods4Customer goods = ((List<Goods4Customer>) response.getData()).get(0);
         boolean share = (StringUtils.isEmpty(form.getClientId())) ? false : true;
-        ConsumerOrder order = new ConsumerOrder(form.getWechat(), form.getConsumerName(), form.getConsumerPhone(), form.getConsumerAddress(), goods, share ? goods.getSharePrice() : goods.getPrimePrice(), Integer.parseInt(form.getGoodsQuantity()));
+        ConsumerOrder order = new ConsumerOrder(form.getClientId(), form.getWechat(), form.getConsumerName(), form.getConsumerPhone(), form.getConsumerAddress(), goods, share ? goods.getSharePrice() : goods.getPrimePrice(), Integer.parseInt(form.getGoodsQuantity()));
         response = orderService.createConsumerOrder(order);
         if (response.getResponseCode() == ResponseCode.RESPONSE_OK) {
             result.setData(response.getData());
@@ -165,5 +171,12 @@ public class GoodsController {
             result.setDescription(response.getDescription());
         }
         return result;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/purchase/pay.htm")
+    public ModelAndView pay() {
+        ModelAndView view = new ModelAndView();
+        view.setViewName("/client/goods/pay");
+        return view;
     }
 }
