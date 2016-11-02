@@ -18,4 +18,8 @@
     <bean id="billDao" class="dist.purify.air.dao.impl.BillDaoImpl">
         <property name="sqlSession" ref="sqlSession"></property>
     </bean>
+
+    <bean id="couponDao" class="dist.purify.air.dao.impl.CouponDaoImpl">
+        <property name="sqlSession" ref="sqlSession"></property>
+    </bean>
 </beans>

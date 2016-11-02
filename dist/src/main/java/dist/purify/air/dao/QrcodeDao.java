@@ -15,4 +15,6 @@ public interface QRCodeDao {
     ResultData queryQRCode(Map<String, Object> condition);
 
     ResultData queryQRCode(Map<String, Object> condition, DataTableParam param);
+
+    ResultData queryQRCodeKind(Map<String, Object> condition);
 }

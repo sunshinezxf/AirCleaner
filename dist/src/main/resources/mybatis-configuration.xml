@@ -6,5 +6,6 @@
         <mapper resource="dist/purify/air/mapper/qrcode/qrcode.xml"></mapper>
         <mapper resource="dist/purify/air/mapper/order/consumerorder.xml"></mapper>
         <mapper resource="dist/purify/air/mapper/bill/orderbill.xml"></mapper>
+        <mapper resource="dist/purify/air/mapper/coupon/coupon.xml"></mapper>
     </mappers>
 </configuration>

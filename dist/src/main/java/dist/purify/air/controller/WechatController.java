@@ -1,17 +1,17 @@
 package dist.purify.air.controller;
 
 import com.thoughtworks.xstream.XStream;
+import dist.purify.air.model.wechat.InMessage;
+import dist.purify.air.utils.Encryption;
 import dist.purify.air.utils.PlatformConfig;
 import dist.purify.air.utils.WechatUtil;
-import dist.purify.air.model.wechat.InMessage;
+import dist.purify.air.utils.XStreamFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import dist.purify.air.utils.Encryption;
-import dist.purify.air.utils.XStreamFactory;
 
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -54,11 +54,21 @@ public class WechatController {
     @ResponseBody
     @RequestMapping(method = RequestMethod.POST, value = "/wechat", produces = "text/xml;charset=utf-8")
     public String handle(HttpServletRequest request, HttpServletResponse response) {
+        String result = "";
         try {
             ServletInputStream stream = request.getInputStream();
             String input = WechatUtil.inputStream2String(stream);
             XStream content = XStreamFactory.init(false);
             content.alias("xml", InMessage.class);
+            final InMessage message = (InMessage) content.fromXML(input);
+            String msgType = message.getMsgType();
+            if (msgType.equals("event")) {
+                result = "欢迎您关注空气堡在线";
+            }
+            if (msgType.equals("text")) {
+                result = "欢迎您关注空气堡在线";
+            }
+            return result;
         } catch (Exception e) {
             logger.error(e.getMessage());
         }

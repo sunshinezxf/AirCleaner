@@ -177,6 +177,21 @@ public class QRCodeServiceImpl implements QRCodeService {
         }
     }
 
+    @Override
+    public ResultData fetchQRCodeKind(Map<String, Object> condition) {
+        ResultData result = new ResultData();
+        ResultData response = qrCodeDao.queryQRCodeKind(condition);
+        result.setResponseCode(response.getResponseCode());
+        if (response.getResponseCode() == ResponseCode.RESPONSE_OK) {
+            result.setData(response.getData());
+        } else if (response.getResponseCode() == ResponseCode.RESPONSE_NULL) {
+            result.setData(response.getData());
+        } else {
+            result.setDescription(response.getDescription());
+        }
+        return result;
+    }
+
     private ResultData combine(String path, String value) {
         ResultData result = new ResultData();
         try {

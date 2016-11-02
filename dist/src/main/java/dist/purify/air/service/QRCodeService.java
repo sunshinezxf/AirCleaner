@@ -17,4 +17,6 @@ public interface QRCodeService {
     ResultData fetchQRCode(Map<String, Object> condition, DataTableParam param);
 
     ResultData fetchQRCodeFile(QRCode code);
+
+    ResultData fetchQRCodeKind(Map<String, Object> condition);
 }

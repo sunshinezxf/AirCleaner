@@ -50,6 +50,12 @@ public class QRCodeController {
         if (response.getResponseCode() == ResponseCode.RESPONSE_OK) {
             view.addObject("goods", response.getData());
         }
+        condition.clear();
+        condition.put("blockFlag", false);
+        response = qrCodeService.fetchQRCodeKind(condition);
+        if (response.getResponseCode() == ResponseCode.RESPONSE_OK) {
+            view.addObject("kinds", response.getData());
+        }
         view.setViewName("/backend/qrcode/create");
         return view;
     }

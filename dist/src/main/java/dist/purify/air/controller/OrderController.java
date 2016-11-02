@@ -50,4 +50,11 @@ public class OrderController {
         result = (DataTablePage<ConsumerOrder>) response.getData();
         return result;
     }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/search")
+    public ModelAndView search() {
+        ModelAndView view = new ModelAndView();
+
+        return view;
+    }
 }

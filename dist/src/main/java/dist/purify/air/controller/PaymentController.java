@@ -99,7 +99,7 @@ public class PaymentController {
         } else {
             OrderBill bill = ((List<OrderBill>) response.getData()).get(0);
             if (bill.getStatus() == BillStatus.PAYED) {
-                message = "空气堡温馨提示,您的订单已付款成功,我们将迅速安排发货";
+                message = "空气堡温馨提示,您的订单已付款成功,您可以关注空气堡在线获取订单信息.";
                 Prompt prompt = new Prompt(message);
                 view.addObject("prompt", prompt);
             } else if (bill.getStatus() == BillStatus.NOT_PAYED) {

@@ -1,0 +1,53 @@
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <hr>
+        <form id="config_coupon_form" class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2 col-md-2 col-lg-2 control-label" for="number_config">
+                    生成数量
+                </label>
+
+                <div class="col-sm-8 col-md-8 col-lg-8">
+                    <input type="number" class="form-control" id="number_config" name="quantity"
+                           placeholder="请输入需要生成的优惠码的数量"
+                           required="" autocomplete="off">
+                </div>
+            </div>
+        </form>
+        <hr>
+        <div class="form-inline">
+            <button type="submit" id="confirm_create_coupon" class="btn btn-success" disabled="disabled">批量生成</button>
+            <button type="button" id="clear_config_content" class="btn btn-warning">清空参数</button>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $(".form-control").on("input propertychange", function () {
+            if (config_validate()) {
+                $("#confirm_create_coupon").removeAttr("disabled");
+            } else {
+                $("#confirm_create_coupon").attr("disabled", "disabled");
+            }
+        });
+    });
+
+    $("#confirm_create_coupon").click(function () {
+        if (config_validate()) {
+            $("#confirm_create_coupon").attr("disabled", "disabled");
+            $("#config_coupon_form").attr("action", "${path.concat('/coupon/create')}");
+            $("#config_coupon_form").attr("method", "post");
+            $("#config_coupon_form").submit();
+            $("#confirm_create_coupon").removeAttr("disabled");
+        }
+    });
+</script>
+<script>
+    function config_validate() {
+        var quantity = $("#number_config").val();
+        if (not_null(quantity)) {
+            return true;
+        }
+        return false;
+    }
+</script>

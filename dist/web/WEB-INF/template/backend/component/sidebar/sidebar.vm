@@ -53,6 +53,11 @@
                             <span class="nav-item"><i class="fa fa-edit"></i>生成二维码</span>
                         </a>
                     </li>
+                    <li>
+                        <a class="sub-nav" href="${path.concat('/coupon/create')}">
+                            <span class="nav-item"><i class="fa fa-edit"></i>生成优惠码</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
         </ul>

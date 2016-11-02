@@ -1,0 +1,12 @@
+#parse("/common/util.vm")
+<html lang="zh_CN">
+<head>
+    #parse("/client/component/init/init_lib.vm")
+    #parse("/client/component/init/responsive_lib.vm")
+    #parse("/client/component/init/weui_lib.vm")
+    <title>订单查询</title>
+</head>
+<body>
+    
+</body>
+</html>

@@ -2,6 +2,7 @@ package dist.purify.air.dao.impl;
 
 import dist.purify.air.dao.BaseDao;
 import dist.purify.air.dao.QRCodeDao;
+import dist.purify.air.model.qrcode.CodeKind;
 import dist.purify.air.model.qrcode.QRCode;
 import dist.purify.air.pagination.DataTablePage;
 import dist.purify.air.pagination.DataTableParam;
@@ -84,6 +85,23 @@ public class QRCodeDaoImpl extends BaseDao implements QRCodeDao {
         }
         page.setData(current);
         result.setData(page);
+        return result;
+    }
+
+    @Override
+    public ResultData queryQRCodeKind(Map<String, Object> condition) {
+        ResultData result = new ResultData();
+        try {
+            List<CodeKind> list = sqlSession.selectList("purify.air.code.kind.query", condition);
+            if (list.isEmpty()) {
+                result.setResponseCode(ResponseCode.RESPONSE_NULL);
+            }
+            result.setData(list);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            result.setResponseCode(ResponseCode.RESPONSE_ERROR);
+            result.setDescription(e.getMessage());
+        }
         return result;
     }
 

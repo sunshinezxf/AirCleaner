@@ -12,4 +12,6 @@
     <bean id="billService" class="dist.purify.air.service.impl.BillServiceImpl"></bean>
 
     <bean id="chargeService" class="dist.purify.air.service.impl.ChargeServiceImpl"></bean>
+
+    <bean id="couponService" class="dist.purify.air.service.impl.CouponServiceImpl"></bean>
 </beans>

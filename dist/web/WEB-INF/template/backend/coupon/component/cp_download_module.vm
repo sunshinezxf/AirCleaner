@@ -1,0 +1,13 @@
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <hr>
+        <div class="alert alert-success alert-dismissible">
+            您的优惠码文件已经生成,请点击<a class="alert-link" href="${path}${file}">链接</a>或下方按钮进行下载
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span>
+        </div>
+        <hr>
+        <div class="form-inline">
+            <a class="btn btn-success" href="${path}${file}">点击下载</a>
+        </div>
+    </div>
+</div>
