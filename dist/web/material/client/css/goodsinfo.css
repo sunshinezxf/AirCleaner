@@ -8,9 +8,12 @@
 
 .goods_brief, .send_fee {
     background-color: #FFFFFF;
+    vertical-align: baseline;
+}
+
+.send_fee{
     width: 100%;
     padding: 5px;
-    vertical-align: baseline;
 }
 
 .goods_brief_name {
@@ -25,8 +28,9 @@
 
 .goods_price {
     font-family: arial, sans-serif;
-    font-size: 18px;
-    float: left;
+    font-size: 22px;
+    float: right;
+    padding-right: 2px;
     line-height: 1.5;
     vertical-align: baseline;
 }
@@ -34,8 +38,8 @@
 .goods_prev_price {
     font-family: arial, sans-serif;
     text-decoration: line-through;
-    font-size: 18px;
-    float: left;
+    font-size: 22px;
+    float: right;
     line-height: 1.5;
     vertical-align: baseline;
 }
@@ -43,8 +47,8 @@
 .goods_current_price {
     font-family: arial, sans-serif;
     color: #f60;
-    font-size: 18px;
-    float: left;
+    font-size: 22px;
+    float: right;
     line-height: 1.5;
     vertical-align: baseline;
 }

@@ -44,7 +44,7 @@
         });
     });
 
-    var clientId = "${client}";
+    var clientId = "$!{client}";
     var openId = '$!{openId}';
 
     function pay() {

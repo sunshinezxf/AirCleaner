@@ -5,9 +5,15 @@ import com.pingplusplus.model.Event;
 import com.pingplusplus.model.Webhooks;
 import dist.purify.air.model.bill.OrderBill;
 import dist.purify.air.model.bill.ext.BillStatus;
+import dist.purify.air.model.coupon.Coupon;
+import dist.purify.air.model.coupon.ext.CouponStatus;
+import dist.purify.air.model.goods.AbstractGoods;
+import dist.purify.air.model.goods.GoodsAssign;
+import dist.purify.air.model.goods.ext.GoodsType;
 import dist.purify.air.model.order.ConsumerOrder;
 import dist.purify.air.model.order.ext.OrderStatus;
 import dist.purify.air.service.BillService;
+import dist.purify.air.service.CouponService;
 import dist.purify.air.service.OrderService;
 import dist.purify.air.utils.JSONUtil;
 import dist.purify.air.utils.ResponseCode;
@@ -44,6 +50,9 @@ public class BillController {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private CouponService couponService;
 
     @RequestMapping(method = RequestMethod.POST, value = "/inform/payment")
     public ResultData inform(HttpServletRequest request, HttpServletResponse response) {
@@ -92,6 +101,28 @@ public class BillController {
                 response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
                 logger.error("订单状态更新失败");
                 return result;
+            }
+            condition.clear();
+            condition.put("orderId", bill.getOrder().getOrderId());
+            r = orderService.fetchConsumerOrder(condition);
+            target = ((List<ConsumerOrder>) r.getData()).get(0);
+            AbstractGoods goods = target.getGoods();
+            if (goods.getGoodsType() == GoodsType.VIRTUAL) {
+                condition.clear();
+                condition.put("status", CouponStatus.VALIDATED.getCode());
+                fetchResponse = couponService.fetchCoupon(condition);
+                if (fetchResponse.getResponseCode() == ResponseCode.RESPONSE_OK) {
+                    Coupon coupon = ((List<Coupon>) fetchResponse.getData()).get(0);
+                    GoodsAssign assign = new GoodsAssign(target, "优惠码分配", coupon.getCouponId(), coupon.getCouponSerial());
+                    r = orderService.createOrderAssign(assign);
+                    if (r.getResponseCode() == ResponseCode.RESPONSE_OK) {
+                        logger.debug("优惠码分配成功，订单: " + target.getOrderId() + "分配的优惠码为: " + coupon.getCouponId());
+                    }
+                    ResultData consumeResponse = couponService.consumeCoupon(coupon);
+                    if (consumeResponse.getResponseCode() != ResponseCode.RESPONSE_OK) {
+                        logger.error("优惠码分配失败");
+                    }
+                }
             }
         }
         return result;

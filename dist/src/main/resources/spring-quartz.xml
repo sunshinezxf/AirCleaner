@@ -16,4 +16,12 @@
             <value>0 0 * * * ?</value>
         </property>
     </bean>
+
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="wechatTokenTrigger"></ref>
+            </list>
+        </property>
+    </bean>
 </beans>

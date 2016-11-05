@@ -15,6 +15,10 @@
         <property name="sqlSession" ref="sqlSession"></property>
     </bean>
 
+    <bean id="orderAssignDao" class="dist.purify.air.dao.impl.OrderAssignDaoImpl">
+        <property name="sqlSession" ref="sqlSession"></property>
+    </bean>
+
     <bean id="billDao" class="dist.purify.air.dao.impl.BillDaoImpl">
         <property name="sqlSession" ref="sqlSession"></property>
     </bean>

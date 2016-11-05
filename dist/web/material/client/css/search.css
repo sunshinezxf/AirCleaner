@@ -1,0 +1,93 @@
+body, html {
+    height: 100%;
+    -webkit-tap-highlight-color: transparent
+}
+
+body {
+    overflow-x: hidden;
+    background-color: #fbf9fe;
+    line-height: 1.6;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.page_title {
+    text-align: center;
+    font-size: 2.125em;
+    color: #3cc51f;
+    font-weight: 400;
+    margin: 0 15%;
+}
+
+.weui_btn_default, .weui_btn_primary {
+    margin-top: 6%;
+}
+
+.order_id {
+    display: inline-block;
+    color: #000000;
+    font-size: 1.2em;
+    font-weight: normal;
+}
+
+.agent {
+    display: inline-block;
+    color: #999999;
+    float: right;
+    font-size: 1.2em;
+}
+
+.weui_media_box .weui_media_title {
+    font-size: 0.9em;
+    display: inline-block;
+    margin-bottom: 0 !important;
+}
+
+.quantity {
+    display: inline-block !important;
+    font-size: 0.9em !important;
+    float: right;
+    color: #999999 !important;
+}
+
+.receiver {
+    display: inline-block !important;
+}
+
+.phone {
+    display: inline-block !important;
+    font-size: 0.9em !important;
+    float: right;
+    color: #999999 !important;
+}
+
+.address {
+    margin-top: 3%;
+    font-size: 0.9em !important;
+}
+
+.total_num {
+    display: inline-block !important;
+    color: #999999 !important;
+}
+
+.total_money {
+    display: inline-block !important;
+    float: right;
+}
+
+.confirm_area {
+    padding-bottom: 1.8em;
+}
+
+.weui_footer {
+    color: #999999;
+    font-size: 14px;
+    text-align: center;
+}
+
+.weui_footer_text {
+    padding: 0 .34em;
+    font-size: 12px;
+}
+
+

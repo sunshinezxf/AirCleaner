@@ -5,32 +5,52 @@
             ${goods.goodsName}
         </div>
         <div class="weui_cell_ft weui_cell_primary goods_price">
-            #if(${client})
-                <div class="goods_prev_price">
-                    ${goods.primePrice}
-                </div>
-                <div class="goods_current_price">
-                    ${goods.sharePrice}元/台
-                </div>
+            #if(${goods.goodsType} == 'REAL')
+                #if($!{client})
+                    <div class="goods_current_price">
+                        ${goods.sharePrice}元/${goods.suffix}
+                    </div>
+                    <div class="goods_prev_price">
+                        ${goods.primePrice}
+                    </div>
+                #else
+                    <div class="goods_current_price">
+                        ${goods.primePrice}元/${goods.suffix}
+                    </div>
+                #end
             #else
                 <div class="goods_current_price">
-                    ${goods.primePrice}元/台
+                    ${goods.sharePrice}元/${goods.suffix}
+                </div>
+                <div class="goods_prev_price">
+                    1098
                 </div>
             #end
         </div>
     </div>
-    <div class="weui_cell weui_cell_primary send_fee">
+    #if(${goods.goodsType} == 'REAL')
+        <div class="weui_cell weui_cell_primary send_fee">
+            <div class="weui_cell_bd weui_cell_primary">
+                运费
+            </div>
+            <div class="weui_cell_ft weui_cell_primary fee_content">
+                包邮
+            </div>
+        </div>
+    #end
+
+    #if(${goods.goodsType} == 'VIRTUAL')
+        <img width="100%" src="${path}${goods.goodsDescription}"/>
+    #else
+        <div class="weui_cell">
+            <div class="weui_cell_bd weui_cell_primary goods_description">
+                ${goods.goodsDescription}
+            </div>
+        </div>
+    #end
+    <div class="weui_cell weui_cell_primary">
         <div class="weui_cell_bd weui_cell_primary">
-            运费
-        </div>
-        <div class="weui_cell_ft weui_cell_primary fee_content">
-            包邮
-        </div>
-    </div>
-    <div class="weui_cell">
-        <div class="weui_cell_bd weui_cell_primary goods_description">
-            承诺WHO最高空气标准,全屋24h全天候PM2.5数值<25,未达标准可退款
-            标准安装费500元在安装时收取(不包含定制玻璃等特殊安装方式耗材费)
+            客服电话: 400-998-4098
         </div>
     </div>
 </div>

@@ -11,7 +11,12 @@
                         <div class="address_icon">
                             <img class="icon" src="${path.concat('/material/client/image/address_icon.jpg')}"/>
                         </div>
-                        <p>收货地址</p>
+                        <p>
+                            收货地址
+                            #if(${goods.goodsType} == 'VIRTUAL')
+                                (供emo发货使用)
+                            #end
+                        </p>
                     </div>
                     <div class="weui_cells">
                         <div class="weui_cell">
@@ -72,29 +77,37 @@
                     </div>
                 </div>
             </div>
-            <div class="weui_cell id">
-                <div class="id_icon">
-                    <img class="icon" src="${path.concat('/material/client/image/id_icon.jpg')}"/>
+            #if(${goods.goodsType} == 'REAL')
+                <div class="weui_cell id">
+                    <div class="id_icon">
+                        <img class="icon" src="${path.concat('/material/client/image/id_icon.jpg')}"/>
+                    </div>
+                    <div class="agent_id">
+                        <table>
+                            <tr>
+                                <td class="hd">
+                                    <label class="id_label">优惠码</label>
+                                </td>
+                                <td class="bd">
+                                    <input id="client_id" class="id_input" type="text" placeholder="可输入优惠码"
+                                           value="$!{client}" disabled/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
-                <div class="agent_id">
-                    <table>
-                        <tr>
-                            <td class="hd">
-                                <label class="id_label">优惠码</label>
-                            </td>
-                            <td class="bd">
-                                <input id="client_id" class="id_input" type="text" placeholder="可输入优惠码"
-                                       value="$!{client}" disabled/>
-                            </td>
-                        </tr>
-                    </table>
+            #else
+                <div class="weui_cell">
+                    <div class="weui_cell_bd">
+                        <font color="red">支付成功后请回到浏览器中保存优惠码信息</font>
+                    </div>
                 </div>
-            </div>
+            #end
             <div class="confirm_area">
                 <div class="total_info">
                     <div class="total_num">
                         <p>共
-                            <span id="total_num">1</span>台
+                            <span id="total_num">1</span>${goods.suffix}
                         </p>
                     </div>
                     <div class="total_money">

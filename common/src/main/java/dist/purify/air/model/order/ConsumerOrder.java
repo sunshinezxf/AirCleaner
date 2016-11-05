@@ -1,6 +1,7 @@
 package dist.purify.air.model.order;
 
 import dist.purify.air.model.goods.Goods4Customer;
+import dist.purify.air.model.goods.GoodsAssign;
 import dist.purify.air.utils.GoodsUtil;
 
 /**
@@ -19,6 +20,8 @@ public class ConsumerOrder extends AbstractOrder {
     private String consumerPhone;
 
     private String consumerAddress;
+
+    private GoodsAssign assign;
 
 
     public ConsumerOrder() {
@@ -94,4 +97,11 @@ public class ConsumerOrder extends AbstractOrder {
         this.consumerAddress = consumerAddress;
     }
 
+    public GoodsAssign getAssign() {
+        return assign;
+    }
+
+    public void setAssign(GoodsAssign assign) {
+        this.assign = assign;
+    }
 }

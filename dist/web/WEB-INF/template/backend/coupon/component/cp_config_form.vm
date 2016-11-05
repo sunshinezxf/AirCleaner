@@ -3,14 +3,41 @@
         <hr>
         <form id="config_coupon_form" class="form-horizontal">
             <div class="form-group">
-                <label class="col-sm-2 col-md-2 col-lg-2 control-label" for="number_config">
-                    生成数量
+                <label class="col-sm-2 col-md-2 col-lg-2 control-label" for="">
+                    生成方式
                 </label>
 
                 <div class="col-sm-8 col-md-8 col-lg-8">
-                    <input type="number" class="form-control" id="number_config" name="quantity"
-                           placeholder="请输入需要生成的优惠码的数量"
-                           required="" autocomplete="off">
+                    <label class="radio-inline">
+                        <input type="radio" id="m_config" name="configuration" value="mannual" checked="checked">手动配置
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" id="f_config" name="configuration" value="fileload">文件导入
+                    </label>
+                </div>
+            </div>
+            <div id="mannual_config">
+                <div class="form-group">
+                    <label class="col-sm-2 col-md-2 col-lg-2 control-label" for="number_config">
+                        生成数量
+                    </label>
+
+                    <div class="col-sm-8 col-md-8 col-lg-8">
+                        <input type="number" class="form-control" id="number_config" name="quantity"
+                               placeholder="请输入需要生成的优惠码的数量"
+                               required="" autocomplete="off">
+                    </div>
+                </div>
+            </div>
+            <div id="fileload_config">
+                <div class="form-group">
+                    <label class="col-sm-2 col-md-2 col-lg-2 control-label" for="">
+                        选取文件
+                    </label>
+
+                    <div class="col-sm-8 col-md-8 col-lg-8 control-label">
+                        <input type="file" name="file">
+                    </div>
                 </div>
             </div>
         </form>
@@ -23,7 +50,32 @@
 </div>
 <script>
     $(document).ready(function () {
+        $("#mannual_config").show();
+        $("#fileload_config").hide();
+
+        $("#m_config").click(function () {
+            $("#mannual_config").show();
+            $("#fileload_config").hide();
+            $("#config_coupon_form").attr("action", "${path.concat('/coupon/create')}");
+        });
+
+        $("#f_config").click(function () {
+            $("#mannual_config").hide();
+            $("#fileload_config").show();
+            $("#config_coupon_form").attr("action", "${path.concat('/coupon/upload')}");
+            $("#config_coupon_form").attr("enctype", "multipart/form-data");
+        });
+
+
         $(".form-control").on("input propertychange", function () {
+            if (config_validate()) {
+                $("#confirm_create_coupon").removeAttr("disabled");
+            } else {
+                $("#confirm_create_coupon").attr("disabled", "disabled");
+            }
+        });
+
+        $("input:radio[name='configuration']").click(function () {
             if (config_validate()) {
                 $("#confirm_create_coupon").removeAttr("disabled");
             } else {
@@ -35,7 +87,6 @@
     $("#confirm_create_coupon").click(function () {
         if (config_validate()) {
             $("#confirm_create_coupon").attr("disabled", "disabled");
-            $("#config_coupon_form").attr("action", "${path.concat('/coupon/create')}");
             $("#config_coupon_form").attr("method", "post");
             $("#config_coupon_form").submit();
             $("#confirm_create_coupon").removeAttr("disabled");
@@ -44,8 +95,13 @@
 </script>
 <script>
     function config_validate() {
-        var quantity = $("#number_config").val();
-        if (not_null(quantity)) {
+        if ($("input:radio[name='configuration']:checked").val() == 'mannual') {
+            var quantity = $("#number_config").val();
+            if (not_null(quantity)) {
+                return true;
+            }
+        }
+        if ($("input:radio[name='configuration']:checked").val() == 'fileload') {
             return true;
         }
         return false;

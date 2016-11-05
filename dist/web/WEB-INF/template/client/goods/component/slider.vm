@@ -1,12 +1,19 @@
 #if(${goods})
 <div class="fading-slider">
     <ul>
+        #if(${goods.goodsType} == 'VIRTUAL')
+            <li><img src="${path.concat('/material/client/image/coupon/coupon_slider.jpg')}"></li>
+        #end
         <li><img src="${path.concat('/material/client/image/newfj/newfj_01.jpg')}"></li>
-        <li><img src="${path.concat('/material/client/image/newfj/newfj_02.jpg')}"></li>
-        <li><img src="${path.concat('/material/client/image/newfj/newfj_03.jpg')}"></li>
-        <li><img src="${path.concat('/material/client/image/newfj/newfj_04.jpg')}"></li>
-        <li><img src="${path.concat('/material/client/image/newfj/newfj_05.jpg')}"></li>
-        <li><img src="${path.concat('/material/client/image/newfj/newfj_06.jpg')}"></li>
+        #if(${goods.goodsType} == 'REAL')
+            <li><img src="${path.concat('/material/client/image/newfj/newfj_02.jpg')}"></li>
+            <li><img src="${path.concat('/material/client/image/newfj/newfj_03.jpg')}"></li>
+            <li><img src="${path.concat('/material/client/image/newfj/newfj_04.jpg')}"></li>
+            <li><img src="${path.concat('/material/client/image/newfj/newfj_05.jpg')}"></li>
+            <li><img src="${path.concat('/material/client/image/newfj/newfj_06.jpg')}"></li>
+        #elseif(${goods.goodsType} == 'VIRTUAL')
+            <li><img src="${path.concat('/material/client/image/emo/emo.jpg')}"></li>
+        #end
     </ul>
 </div>
 <script>

@@ -16,6 +16,7 @@
         <result property="blockFlag" column="block_flag"></result>
         <result property="createAt" column="create_time"></result>
         <association property="goods" column="goodsId = goods_id" select="goodsQuery"></association>
+        <association property="assign" column="orderId = order_id" select="assignQuery"></association>
     </resultMap>
 
     <resultMap id="goodsVo" type="dist.purify.air.model.goods.Goods4Customer">
@@ -23,9 +24,16 @@
         <result property="goodsName" column="goods_name"></result>
         <result property="primePrice" column="prime_price"></result>
         <result property="sharePrice" column="share_price"></result>
+        <result property="goodsType" column="goods_type"
+                typeHandler="dist.purify.air.reflection.goods.GoodsTypeHandler"></result>
         <result property="goodsDescription" column="goods_description"></result>
         <result property="blockFlag" column="block_flag"></result>
         <result property="createAt" column="create_time"></result>
+    </resultMap>
+
+    <resultMap id="assignVo" type="dist.purify.air.model.goods.GoodsAssign">
+        <result property="assignId" column="assign_id"></result>
+        <result property="assignValue" column="assign_value"></result>
     </resultMap>
 
     <insert id="insert" parameterType="dist.purify.air.model.order.ConsumerOrder" useGeneratedKeys="false">
@@ -49,7 +57,7 @@
                 consumer_address = #{consumerAddress},
             </if>
             <if test="status != null">
-                order_status = #{status},
+                order_status = #{status, typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},
             </if>
             order_id = #{orderId}
         </set>
@@ -76,11 +84,21 @@
         <if test="consumerPhone != null">
             AND consumer_phone = #{consumerPhone}
         </if>
+        <if test="status != null">
+            AND order_status = #{status}
+        </if>
     </select>
 
     <select id="goodsQuery" parameterType="java.util.Map" resultMap="goodsVo">
-        SELECT goods_id, goods_name, prime_price, share_price, goods_description, block_flag, create_time
+        SELECT goods_id, goods_name, prime_price, share_price, goods_type, goods_description, block_flag, create_time
         FROM airburg.goods
         WHERE goods_id = #{goodsId}
+    </select>
+
+    <select id="assignQuery" parameterType="java.util.Map" resultMap="assignVo">
+        SELECT assign_id, assign_value
+        FROM goods_assign
+        WHERE order_id = #{orderId}
+        AND block_flag = FALSE
     </select>
 </mapper>

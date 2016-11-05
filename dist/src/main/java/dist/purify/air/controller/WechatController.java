@@ -1,7 +1,9 @@
 package dist.purify.air.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.thoughtworks.xstream.XStream;
 import dist.purify.air.model.wechat.InMessage;
+import dist.purify.air.model.wechat.TextOutMessage;
 import dist.purify.air.utils.Encryption;
 import dist.purify.air.utils.PlatformConfig;
 import dist.purify.air.utils.WechatUtil;
@@ -19,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 
 /**
  * Created by sunshine on 5/24/16.
@@ -54,21 +57,28 @@ public class WechatController {
     @ResponseBody
     @RequestMapping(method = RequestMethod.POST, value = "/wechat", produces = "text/xml;charset=utf-8")
     public String handle(HttpServletRequest request, HttpServletResponse response) {
-        String result = "";
+        String xml;
         try {
             ServletInputStream stream = request.getInputStream();
             String input = WechatUtil.inputStream2String(stream);
             XStream content = XStreamFactory.init(false);
             content.alias("xml", InMessage.class);
             final InMessage message = (InMessage) content.fromXML(input);
+            logger.debug("message: " + JSONObject.toJSONString(message));
             String msgType = message.getMsgType();
             if (msgType.equals("event")) {
-                result = "欢迎您关注空气堡在线";
             }
             if (msgType.equals("text")) {
-                result = "欢迎您关注空气堡在线";
+                TextOutMessage out = new TextOutMessage();
+                out.setFromUserName(message.getToUserName());
+                out.setToUserName(message.getFromUserName());
+                out.setCreateTime(new Date().getTime());
+                out.setContent("您好，有问题请留言并留下您的联系方式，我们的客服会尽快和您联系。");
+                content.alias("xml", TextOutMessage.class);
+                xml = content.toXML(out);
+                return xml;
             }
-            return result;
+            return "";
         } catch (Exception e) {
             logger.error(e.getMessage());
         }

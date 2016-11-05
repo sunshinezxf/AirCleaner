@@ -1,0 +1,63 @@
+#parse("/common/util.vm")
+<html lang="zh_CN">
+<head>
+    #parse("/client/component/init/init_lib.vm")
+    #parse("/client/component/init/responsive_lib.vm")
+    #parse("/client/component/init/weui_lib.vm")
+    <link rel="stylesheet" type="text/css" href="${path.concat('/material/client/css/search.css')}"/>
+    <title>订单列表</title>
+</head>
+<body>
+<div class="hd">
+    <h1 class="page_title">所有订单</h1>
+</div>
+<div class="bd">
+    #if(${list})
+        #foreach( $item in ${list})
+            <div class="weui_panel weui_panel_access order_panel">
+                <div class="weui_panel_hd col1">
+                    <h4 class="order_id">订单号:${item.orderId}</h4>
+                </div>
+                <div class="weui_panel_bd">
+                    <div class="weui_media_box weui_media_text col2">
+                        <h4 class="weui_media_title goods">商品名:${item.goods.goodsName}</h4>
+
+                        <p class="weui_media_title quantity">x${item.goodsQuantity}</p>
+                    </div>
+                    <div class="weui_media_box weui_media_text col3">
+                        <h4 class="weui_media_title receiver">收件人:${item.consumerName}</h4>
+
+                        <p class="weui_media_title phone">手机号:${item.consumerPhone}</p>
+
+                        <p class="weui_media_desc address">地址:${item.consumerAddress}</p>
+                    </div>
+                    <div class="weui_media_box weui_media_text">
+                        <h4 class="weui_media_title receiver">emo正在备货中</h4>
+                    </div>
+                    #if($!{item.assign})
+                        <div class="weui_media_box weui_media_text">
+                            <h4 class="weui_media_title">优惠码:</h4>
+
+                            <p class="weui_media_title">${item.assign.assignValue}</p>
+                        </div>
+                    #end
+                    <div class="weui_media_box weui_media_text col4">
+                        <p class="weui_media_title total_num">共${item.goodsQuantity}件商品</p>
+                        <h4 class="weui_media_title total_money">合计：${item.totalFee}元</h4>
+                    </div>
+                </div>
+            </div>
+        #end
+    #end
+
+    <div class="confirm_area weui_btn_area">
+        <button class="weui_btn weui_btn_primary" id="confirm">确定</button>
+    </div>
+</div>
+</body>
+<script>
+    $("#confirm").click(function () {
+        WeixinJSBridge.call('closeWindow');
+    });
+</script>
+</html>

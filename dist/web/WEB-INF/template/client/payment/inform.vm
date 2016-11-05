@@ -12,11 +12,11 @@
         <div class="weui_msg">
             <div class="weui_icon_area">
                 #if(${prompt.code} == 'SUCCESS')
-                    <i class="weui_icon_msg weui_icon_success"></i>
+                    <i class="weui_icon_success"></i>
                 #elseif(${prompt.code} == 'WARNING')
-                    <i class="weui_icon_msg weui_icon_waiting"></i>
+                    <i class="weui_icon_waiting"></i>
                 #else
-                    <i class="weui_icon_msg weui_icon_warn"></i>
+                    <i class="weui_icon_warn"></i>
                 #end
             </div>
             <div class="weui_text_area">
@@ -30,7 +30,9 @@
                 <img src="${path.concat('/material/backend/image/qrcode.jpg')}"/>
 
                 <p class="weui_btn_area">
-                    <button class="weui_btn weui_btn_primary" id="confirm">关闭</button>
+                    #foreach($item in ${prompt.link})
+                        <a class="weui_btn weui_btn_primary" href="${item.link}">${item.description}</a>
+                    #end
                 </p>
             </div>
         </div>

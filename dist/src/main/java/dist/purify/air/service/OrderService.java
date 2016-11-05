@@ -1,5 +1,6 @@
 package dist.purify.air.service;
 
+import dist.purify.air.model.goods.GoodsAssign;
 import dist.purify.air.model.order.ConsumerOrder;
 import dist.purify.air.model.qrcode.QRCode;
 import dist.purify.air.pagination.DataTableParam;
@@ -18,4 +19,8 @@ public interface OrderService {
     ResultData fetchConsumerOrder(Map<String, Object> condition, DataTableParam param);
 
     ResultData renovateConsumerOrder(ConsumerOrder order);
+
+    ResultData fetchOrderAssign(Map<String, Object> condition);
+
+    ResultData createOrderAssign(GoodsAssign assign);
 }

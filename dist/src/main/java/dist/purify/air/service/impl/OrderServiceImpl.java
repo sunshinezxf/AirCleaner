@@ -1,6 +1,8 @@
 package dist.purify.air.service.impl;
 
+import dist.purify.air.dao.OrderAssignDao;
 import dist.purify.air.dao.OrderDao;
+import dist.purify.air.model.goods.GoodsAssign;
 import dist.purify.air.model.order.ConsumerOrder;
 import dist.purify.air.pagination.DataTableParam;
 import dist.purify.air.service.OrderService;
@@ -22,6 +24,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderDao orderDao;
+
+    @Autowired
+    private OrderAssignDao orderAssignDao;
 
     @Override
     public ResultData createConsumerOrder(ConsumerOrder order) {
@@ -74,6 +79,32 @@ public class OrderServiceImpl implements OrderService {
         if (response.getResponseCode() == ResponseCode.RESPONSE_OK) {
             result.setData(response.getData());
         } else {
+            result.setDescription(response.getDescription());
+        }
+        return result;
+    }
+
+    @Override
+    public ResultData fetchOrderAssign(Map<String, Object> condition) {
+        ResultData result = new ResultData();
+        ResultData response = orderAssignDao.queryAssign(condition);
+        result.setResponseCode(response.getResponseCode());
+        if (response.getResponseCode() == ResponseCode.RESPONSE_OK) {
+            result.setData(response.getData());
+        } else if (response.getResponseCode() == ResponseCode.RESPONSE_ERROR) {
+            result.setDescription(response.getDescription());
+        }
+        return result;
+    }
+
+    @Override
+    public ResultData createOrderAssign(GoodsAssign assign) {
+        ResultData result = new ResultData();
+        ResultData response = orderAssignDao.insertAssign(assign);
+        result.setResponseCode(response.getResponseCode());
+        if (response.getResponseCode() == ResponseCode.RESPONSE_OK) {
+            result.setData(response.getData());
+        } else if (response.getResponseCode() == ResponseCode.RESPONSE_ERROR) {
             result.setDescription(response.getDescription());
         }
         return result;

@@ -1,6 +1,7 @@
 package dist.purify.air.controller;
 
 import dist.purify.air.model.order.ConsumerOrder;
+import dist.purify.air.model.order.ext.OrderStatus;
 import dist.purify.air.pagination.DataTablePage;
 import dist.purify.air.pagination.DataTableParam;
 import dist.purify.air.service.OrderService;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -51,10 +53,29 @@ public class OrderController {
         return result;
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/search")
+    @RequestMapping(method = RequestMethod.GET, value = "/search")
     public ModelAndView search() {
         ModelAndView view = new ModelAndView();
+        view.setViewName("/client/order/search");
+        return view;
+    }
 
+    @RequestMapping(method = RequestMethod.POST, value = "/search")
+    public ModelAndView search(String phone) {
+        ModelAndView view = new ModelAndView();
+        if (StringUtils.isEmpty(phone)) {
+            view.setViewName("redirect:/order/search");
+        }
+        Map<String, Object> condition = new HashMap<>();
+        condition.put("consumerPhone", phone);
+        condition.put("status", OrderStatus.PAYED.getCode());
+        condition.put("blockFlag", false);
+        ResultData response = orderService.fetchConsumerOrder(condition);
+        if (response.getResponseCode() == ResponseCode.RESPONSE_OK) {
+            List<ConsumerOrder> list = (List<ConsumerOrder>) response.getData();
+            view.addObject("list", list);
+        }
+        view.setViewName("/client/order/list");
         return view;
     }
 }
