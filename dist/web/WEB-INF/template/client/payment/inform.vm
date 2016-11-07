@@ -27,7 +27,7 @@
                 </p>
             </div>
             <div class="weui_opr_area">
-                <img src="${path.concat('/material/backend/image/qrcode.jpg')}"/>
+                <img src="${path.concat('/material/backend/image/qrcode.png')}"/>
 
                 <p class="weui_btn_area">
                     #foreach($item in ${prompt.link})

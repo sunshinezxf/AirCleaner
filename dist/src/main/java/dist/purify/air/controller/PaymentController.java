@@ -118,10 +118,10 @@ public class PaymentController {
                 } else {
                     message = "空气堡温馨提示,您的订单已付款成功,您可以关注空气堡在线获取订单信息.";
                 }
+                PromptLink taobaoStore = new PromptLink("淘宝店铺", "https://item.taobao.com/item.htm?spm=a1z10.3-c-s.w4002-15439826963.9.sHmp8z&id=541299299755");
+                link.add(taobaoStore);
                 PromptLink wechatStore = new PromptLink("微信店铺", "https://h5.koudaitong.com/v2/goods/3ez3rz5oxuipl");
                 link.add(wechatStore);
-                PromptLink taobaoStore = new PromptLink("淘宝店铺", "https://item.taobao.com/item.htm?spm=a1z10.3-c-s.w4023-15439826962.7.7cxpbw&id=541174336379");
-                link.add(taobaoStore);
                 Prompt prompt = new Prompt(message, link);
                 view.addObject("prompt", prompt);
             } else if (bill.getStatus() == BillStatus.NOT_PAYED) {

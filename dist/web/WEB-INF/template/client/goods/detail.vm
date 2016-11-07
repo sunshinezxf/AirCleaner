@@ -129,6 +129,6 @@
     //设置分享页面的标题和描述
     var title = "${goods.goodsName}";
 
-    var description = "${goods.goodsDescription}";
+    var description = "空气堡在线，您身边的空气管家";
 </script>
 </html>

@@ -41,6 +41,14 @@
 
     #if(${goods.goodsType} == 'VIRTUAL')
         <img width="100%" src="${path}${goods.goodsDescription}"/>
+
+        <div class="weui_cell">
+            <div class="weui_cell_bd weui_cell_primary goods_description">
+                1.官方店铺新风机优惠券 价值800元<br>
+                2.emo plus检测仪一台 价值298元<br>
+                3.上门勘测服务<br>
+            </div>
+        </div>
     #else
         <div class="weui_cell">
             <div class="weui_cell_bd weui_cell_primary goods_description">

@@ -11,7 +11,7 @@
     vertical-align: baseline;
 }
 
-.send_fee{
+.send_fee {
     width: 100%;
     padding: 5px;
 }
@@ -58,7 +58,7 @@
 }
 
 .goods_description {
-    font-size: 0.5em;
+    font-size: 0.7em;
     color: #747474;
 }
 

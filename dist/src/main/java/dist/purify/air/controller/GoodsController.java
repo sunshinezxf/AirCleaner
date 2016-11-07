@@ -111,7 +111,7 @@ public class GoodsController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/purchase/{goodsId}")
-    public ModelAndView purchase(@PathVariable("goodsId") String goodsId, String client, String code, String state, HttpServletRequest request) throws IOException {
+    public ModelAndView purchase(@PathVariable("goodsId") String goodsId, String client, String code, String oauthURL, String state, HttpServletRequest request) throws IOException {
         ModelAndView view = new ModelAndView();
         Map<String, Object> condition = new HashMap<>();
         condition.put("goodsId", goodsId);
@@ -129,9 +129,12 @@ public class GoodsController {
         view.addObject("goodsId", goodsId);
         PlatformConfig instance = PlatformConfig.instance();
         //获取微信中的URL链接
-        StringBuffer url = new StringBuffer("http://").append(instance.getValue("server_url")).append("/goods/purchase/").append(goodsId).append("?client=").append(client);
-        String oauthURL = WechatUtil.createOauthURL(url.toString());
-        view.addObject("oauthURL", oauthURL);
+        StringBuffer url = new StringBuffer("http://").append(instance.getValue("server_url")).append("/goods/purchase/").append(goodsId);
+        if (!StringUtils.isEmpty(client)) {
+            url.append("?client=").append(client);
+        }
+        String authURL = WechatUtil.createOauthURL(url.toString());
+        view.addObject("oauthURL", authURL);
         Goods4Customer goods = ((List<Goods4Customer>) response.getData()).get(0);
         view.addObject("goods", goods);
         if (!StringUtils.isEmpty(client)) {
@@ -141,6 +144,10 @@ public class GoodsController {
             String openId = WechatUtil.queryOauthOpenId(code);
             HttpSession session = request.getSession();
             session.setAttribute("openId", openId);
+            view.setViewName("redirect:/goods" + "/purchase/" + goodsId);
+            return view;
+        }
+        if (!StringUtils.isEmpty(oauthURL)) {
             view.setViewName("redirect:/goods" + "/purchase/" + goodsId);
             return view;
         }

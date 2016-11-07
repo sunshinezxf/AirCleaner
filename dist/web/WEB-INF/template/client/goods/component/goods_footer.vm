@@ -3,9 +3,9 @@
         <div class="weui_cell goods_quantity">
             <div class="weui_cell_bd weui_cell_primary quantity_choose">
                 数量:
-                <button id="min_btn" class="min">-</button>
+            ##                <button id="min_btn" class="min">-</button>
                 <input id="goods_num" class="num_box" type="text" value="1" readonly="true"/>
-                <button id="add_btn" class="add">+</button>
+            ##                <button id="add_btn" class="add">+</button>
             </div>
             <div class="weui_cell_ft weui_cell_primary">
                 <button id="purchase" class="weui_btn weui_btn_primary goods_purchase">立即购买</button>
