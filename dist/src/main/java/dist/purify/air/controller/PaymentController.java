@@ -111,17 +111,15 @@ public class PaymentController {
                     response = orderService.fetchOrderAssign(condition);
                     if (response.getResponseCode() == ResponseCode.RESPONSE_OK) {
                         GoodsAssign assign = ((List<GoodsAssign>) response.getData()).get(0);
-                        message = "付款成功,优惠码为:" + assign.getAssignValue() + ",可在下方官方店铺购买使用,关注空气堡在线获取订单详情和售后服务.售后电话:4009984098.";
+                        message = "付款成功，您的emo即将发货，并已获得新风机优惠团购资格，可通过团购入口进入。售后电话:4009984098。";
                     } else {
-                        message = "空气堡温馨提示,您的订单已付款成功,您可以关注空气堡在线获取订单信息.";
+                        message = "空气堡温馨提示,您的订单已付款成功,您可以关注空气堡在线获取订单信息。售后电话:4009984098。";
                     }
                 } else {
-                    message = "空气堡温馨提示,您的订单已付款成功,您可以关注空气堡在线获取订单信息.";
+                    message = "空气堡温馨提示,您的订单已付款成功。售后电话:4009984098。";
                 }
-                PromptLink taobaoStore = new PromptLink("淘宝店铺", "https://item.taobao.com/item.htm?spm=a1z10.3-c-s.w4002-15439826963.9.sHmp8z&id=541299299755");
+                PromptLink taobaoStore = new PromptLink("团购入口", "https://weidian.com/item.html?itemID=1988736000");
                 link.add(taobaoStore);
-                PromptLink wechatStore = new PromptLink("微信店铺", "https://h5.koudaitong.com/v2/goods/3ez3rz5oxuipl");
-                link.add(wechatStore);
                 Prompt prompt = new Prompt(message, link);
                 view.addObject("prompt", prompt);
             } else if (bill.getStatus() == BillStatus.NOT_PAYED) {
